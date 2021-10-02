@@ -1,0 +1,60 @@
+body, html {
+    font-family: 'Raleway', sans-serif;
+    max-width: 1440px;
+	margin: auto;
+}
+header {
+    display: flex;
+    align-items: center;
+}
+header img {
+    height: 4em;
+}
+header nav {
+    
+}
+nav ul {
+    display: flex;
+    list-style-type: none;
+}
+ul li {
+    color: #901C1C;
+    border: 1px solid #a7a6a6;
+    border-radius: 50px;
+    text-align: center;
+    padding: .1em .5em;
+    margin: .2em;
+}
+main > div {
+    position: relative;
+}
+h1 {
+    color: #901C1C;
+    font-size: 1.7em;
+    font-weight: lighter;
+    position: absolute;
+    right: 50px;
+    top: -60px;
+}
+
+@media screen and (max-width: 414px) {
+    
+    header {
+        display: block;
+    }
+    header img {
+        height: 3em;
+        margin-left: -1.5em;
+        padding-top: 20px;
+    }
+    .title {
+        font-size: 1em;
+        right: 20px;
+        top: -138px;
+    }
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-left: 0;
+    }
+}

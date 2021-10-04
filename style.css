@@ -1,23 +1,27 @@
 body, html {
     font-family: 'Raleway', sans-serif;
+    font-size: .9em;
     max-width: 1440px;
 	margin: auto;
 }
 header {
     display: flex;
     align-items: center;
+    margin: 1.5em 3em;
 }
 header img {
-    height: 4em;
+    height: 4.5em;
 }
-header nav {
-    
+nav {
+    padding-left: 3em;
 }
 nav ul {
     display: flex;
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
-ul li {
+nav ul li {
     color: #901C1C;
     border: 1px solid #a7a6a6;
     border-radius: 50px;
@@ -27,6 +31,8 @@ ul li {
 }
 main > div {
     position: relative;
+    display: flex;
+    justify-content: flex-end;
 }
 h1 {
     color: #901C1C;
@@ -34,7 +40,60 @@ h1 {
     font-weight: lighter;
     position: absolute;
     right: 50px;
-    top: -60px;
+    top: -75px;
+}
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 3em;
+
+}
+.card {
+    width: 370px;
+    text-align: center;
+    margin-bottom: 2em;
+}
+.card img {
+    height: 170px;
+    width: 170px;
+    object-fit: cover;
+    border-radius: 100px;
+}
+h2 {
+    color: #D3573C;
+    font-weight: lighter;
+    font-size: 2.1em;
+    margin-bottom: .2em;
+}
+.location {
+    color:#901C1C;
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: .2em;
+}
+.motto {
+    font-size: .9em;
+    margin: 0;
+}
+.price {
+    color:#a7a6a6;
+    font-size: .9em;
+    margin: 0;
+}
+.card ul {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    margin-top: .3em;
+    padding: 0;
+}
+.card ul li {
+    border: 1px solid #a7a6a6;
+    border-radius: 50px;
+    color:#901C1C;
+    padding: .1em .5em;
+    margin: .1em;
 }
 
 @media screen and (max-width: 414px) {
@@ -44,17 +103,20 @@ h1 {
     }
     header img {
         height: 3em;
-        margin-left: -1.5em;
-        padding-top: 20px;
+        margin-left: -4em;
+        margin-bottom: 1.5em;
     }
-    .title {
-        font-size: 1em;
-        right: 20px;
-        top: -138px;
+    nav {
+        padding-left: unset;
     }
     nav ul {
         flex-wrap: wrap;
         justify-content: center;
         padding-left: 0;
+    }
+    .title {
+        font-size: 1.1em;
+        right: 20px;
+        top: -125px;
     }
 }

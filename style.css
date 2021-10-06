@@ -21,13 +21,26 @@ nav ul {
     margin: 0;
     padding: 0;
 }
-nav ul li {
+ul li {
+    cursor: pointer;
     color: #901C1C;
     border: 1px solid #a7a6a6;
     border-radius: 50px;
     text-align: center;
     padding: .1em .5em;
     margin: .2em;
+}
+ul li:hover {
+    background-color:#901C1C;
+    color: white;
+}
+ul li:active {
+    background-color:#901C1C;
+    color: white;
+}
+ul li:focus {
+    background-color:#901C1C;
+    color: white;
 }
 main > div {
     position: relative;
@@ -87,13 +100,6 @@ h2 {
     justify-content: center;
     margin-top: .3em;
     padding: 0;
-}
-.card ul li {
-    border: 1px solid #a7a6a6;
-    border-radius: 50px;
-    color:#901C1C;
-    padding: .1em .5em;
-    margin: .1em;
 }
 
 @media screen and (max-width: 414px) {

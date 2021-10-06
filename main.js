@@ -1,4 +1,5 @@
 let jsonPhotoDb;
+// let photoObj = [];
 
 function showAllPhotographers(photoDb) {
     let photographes = photoDb["photographers"]; // on accède à l'objet photographers dans l'objet jsonObj
@@ -6,16 +7,14 @@ function showAllPhotographers(photoDb) {
     photographes.forEach(ph => {
         let html = document.createElement("div");
         html.classList.add("card");
+        
+        // photoObj.push( { json: ph, elem: html });
 
         let liTags = '';
 
         for (let tag of ph['tags']) { // cette méthode de for peut être utilisée pour les objets de type array
-            liTags += `<li>#${tag}</li>`; // façon standard de for serait êcrit comme suit: 
+            liTags += `<li class="tag">#${tag}</li>`; 
         }
-
-        // for (let i=0; i < ph['tags'].length; i++) { 
-        //     liTags += `<li>#${ph['tags'][i]}</li>`;
-        // }
 
         html.innerHTML = `<div><a href="#">
                           <img src="photos/Photographers_ID_Photos/${ph["portrait"]}" alt="portrait_photographe">
@@ -36,7 +35,20 @@ fetch("./FishEyeData.json")
 .then(function profilPhotographes(jsonObj) { // jsonObj est l'objet retourné par le .then précedent
     jsonPhotoDb = jsonObj;
 
-    showAllPhotographers(jsonPhotoDb);
+    showAllPhotographers(jsonObj);
+
+    document.querySelectorAll('.tag').forEach( (li) => li.addEventListener("click",function(e) {
+        console.log(e.target);
+        let content = e.target.innerHTML;
+        console.log(content);
+        
+        // mon essai :
+        document.querySelectorAll(".card").forEach(card => { // forEach applique la fonction à chaque element de tableau array dans l'ordre
+            let tags = card.querySelectorAll(".tag");
+            console.log(tags)
+        })
+    }) );
+
 /*    
     let photographes = jsonObj["photographers"]; // on accède à l'objet photographers dans l'objet jsonObj
 

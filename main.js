@@ -1,65 +1,71 @@
 let jsonPhotoDb;
-// let photoObj = [];
+let photographersSection = document.querySelector("section");
+let selectedTag = null;
 
-function showAllPhotographers(photoDb) {
-    let photographes = photoDb["photographers"]; // on accède à l'objet photographers dans l'objet jsonObj
+// Creates html elem conatining single photographer and returning this html elem
+// ph - json obj representing single photographer
+// returning created elem representing ph photographer
+function createPhotographerElem(ph) {
+    let html = document.createElement("div");
+    html.classList.add("card");
+    
+    let liTags = '';
 
-    photographes.forEach(ph => {
-        let html = document.createElement("div");
-        html.classList.add("card");
-        
-        // photoObj.push( { json: ph, elem: html });
+    for (let tag of ph['tags']) { // cette méthode de for peut être utilisée pour les objets de type array
+        liTags += `<li class="tag">#${tag}</li>`; 
+    }
 
-        let liTags = '';
+    html.innerHTML = `<div><a href="profil.html?id=${ph["id"]}">
+                      <img src="photos/Photographers_ID_Photos/${ph["portrait"]}" alt="portrait_photographe">
+                      </a></div>
+                      <h2> ${ph["name"]} </h2>
+                      <p class="location"> ${ph["city"]}, ${ph["country"]} </p>
+                      <p class="motto"> ${ph["tagline"]} </p>
+                      <p class="price"> ${ph["price"]}€/jour </p>
+                      <ul> ${liTags} </ul>`;
 
-        for (let tag of ph['tags']) { // cette méthode de for peut être utilisée pour les objets de type array
-            liTags += `<li class="tag">#${tag}</li>`; 
-        }
+    return html;
+}
 
-        html.innerHTML = `<div><a href="#">
-                          <img src="photos/Photographers_ID_Photos/${ph["portrait"]}" alt="portrait_photographe">
-                          </a></div>
-                          <h2> ${ph["name"]} </h2>
-                          <p class="location"> ${ph["city"]}, ${ph["country"]} </p>
-                          <p class="motto"> ${ph["tagline"]} </p>
-                          <p class="price"> ${ph["price"]}€/jour </p>
-                          <ul> ${liTags} </ul>`;
+// Add all photographers whith paricular tag, when tag == null add all
+// jsonObj - json obj with photographers db
+// targetElem - html element to which appand
+// tag - tag to show, when null show whole db
+function showPhotographersByTag(jsonObj, targetElem, tag = null) {
+    let photographers = jsonObj["photographers"];
 
-        document.querySelector("section").appendChild(html);
-    });
+    // remove all photographer from targetElem
+    while (targetElem.firstChild) {
+        targetElem.firstChild.remove();
+    }
 
+    if (tag === null) {  // add all
+        photographers.forEach((ph) => targetElem.appendChild( createPhotographerElem(ph) ) );
+    } else {  // add only with tags
+        photographers.forEach((ph) => {
+            if ( ph['tags'].includes(tag) ) {
+                targetElem.appendChild( createPhotographerElem(ph) );
+            }
+        });        
+    }
 }
 
 fetch("./FishEyeData.json")
-.then(response => response.json()) // fonction fléchée; fonction standard aurait été écrit comme suit: .then(function(response){return response.json()})
-.then(function profilPhotographes(jsonObj) { // jsonObj est l'objet retourné par le .then précedent
+.then( (response) => response.json()) // fonction fléchée; fonction standard aurait été écrit comme suit: .then(function(response){return response.json()})
+.then( (jsonObj)  =>  {                // jsonObj est l'objet retourné par le .then précedent
     jsonPhotoDb = jsonObj;
 
-    showAllPhotographers(jsonObj);
+    showPhotographersByTag(jsonPhotoDb, photographersSection);
 
-    document.querySelectorAll('.tag').forEach( (li) => li.addEventListener("click",function(e) {
-        console.log(e.target);
-        let content = e.target.innerHTML;
-        console.log(content);
-        
-        // mon essai :
-        document.querySelectorAll(".card").forEach(card => { // forEach applique la fonction à chaque element de tableau array dans l'ordre
-            let tags = card.querySelectorAll(".tag");
-            console.log(tags)
-        })
-    }) );
+    document.querySelectorAll('.tag').forEach( 
+        (li) => li.addEventListener("click",(e) => {
+            //e.target.classList.add("class") => change couleur ds CSS / ici dans if else en dessous, enlever d'abord la class a tous le monde et puis si clique tu ajoute la class
 
-/*    
-    let photographes = jsonObj["photographers"]; // on accède à l'objet photographers dans l'objet jsonObj
+            let tag = e.target.textContent.substring(1).toLowerCase();
+            selectedTag = (selectedTag === tag) ? null : tag; // full version of that line is: if (selectedTag === tag) {selectedTag =  null;} else {selectedTag = tag;}
 
-    photographes.forEach(photographe => {
-        let html = document.createElement("div");
-        html.classList.add("card");
-
-        html.innerHTML = `<h2> ${photographe["name"]} </h2><p class="location"> ${photographe["city"]}, ${photographe["country"]} </p><p class="motto"> ${photographe["tagline"]} </p><p class="price"> ${photographe["price"]}€/jour </p><ul> ${photographe["tags"]} </ul>`;
-
-        document.querySelector("section").appendChild(html);
-    });
-*/
+            showPhotographersByTag(jsonPhotoDb, photographersSection, selectedTag);
+        }) 
+    );
 });
 

@@ -1,6 +1,66 @@
 let jsonPhotoDb;
 let photographersSection = document.querySelector("section");
 let selectedTag = null;
+let photographers = [];
+
+function Photographer(jsonPhotographerObj, parentElem) {
+    this.json = jsonPhotographerObj;
+    this.tags = this.json['tags'];
+    this.parentElem = parentElem;
+    this.isOnScreen = false;
+
+    this.createPhotographerElem = function() {
+        let html = document.createElement("div");
+        html.classList.add("card");
+        
+        let liTags = '';
+    
+        for (let tag of this.tags) { // cette méthode de for peut être utilisée pour les objets de type array
+            liTags += `<li class="tag">#${tag}</li>`; 
+        }
+    
+        html.innerHTML = `<div><a href="profil.html?id=${this.json["id"]}">
+                          <img src="photos/Photographers_ID_Photos/${this.json["portrait"]}" alt="portrait_photographe">
+                          </a></div>
+                          <h2> ${this.json["name"]} </h2>
+                          <p class="location"> ${this.json["city"]}, ${this.json["country"]} </p>
+                          <p class="motto"> ${this.json["tagline"]} </p>
+                          <p class="price"> ${this.json["price"]}€/jour </p>
+                          <ul> ${liTags} </ul>`;
+    
+        return html;
+    }
+
+    this.elem = this.createPhotographerElem();
+
+    this.showInGallery = function() {
+        if (!this.isOnScreen) {
+            this.parentElem.appendChild(this.elem);
+            this.isOnScreen = true;
+        }
+    }
+
+    this.hideInGallery = function() {
+        if (this.isOnScreen) {
+            this.parentElem.removeChild(this.elem);
+            this.isOnScreen = false;
+        }
+    }
+
+    this.checkTag = function(tag) {
+        return this.tags.includes(tag);
+    }
+
+    // this.applyTagFilter = function(tag) {
+    //     if ( this.tags.includes(tag) ) {
+    //         this.show();
+    //     } else {
+    //         this.hide();
+    //     }
+    // }
+  }
+
+
 
 // Creates html elem conatining single photographer and returning this html elem
 // ph - json obj representing single photographer
@@ -27,11 +87,22 @@ function createPhotographerElem(ph) {
     return html;
 }
 
+function showAllPhotographers() {
+    photographers.forEach( (ph) => ph.hideInGallery() );
+    photographers.forEach( (ph) => ph.showInGallery() );
+}
+
 // Add all photographers whith paricular tag, when tag == null add all
 // jsonObj - json obj with photographers db
 // targetElem - html element to which appand
 // tag - tag to show, when null show whole db
-function showPhotographersByTag(jsonObj, targetElem, tag = null) {
+function showPhotographersByTag(tag) {
+
+    photographers.forEach( (ph) => ph.hideInGallery() );
+    photographers.forEach( (ph) => { ph.checkTag(tag) && ph.showInGallery(); } );        
+}
+
+/*    
     let photographers = jsonObj["photographers"];
 
     // remove all photographer from targetElem
@@ -48,14 +119,16 @@ function showPhotographersByTag(jsonObj, targetElem, tag = null) {
             }
         });        
     }
-}
+*/
 
 fetch("./FishEyeData.json")
 .then( (response) => response.json()) // fonction fléchée; fonction standard aurait été écrit comme suit: .then(function(response){return response.json()})
 .then( (jsonObj)  =>  {                // jsonObj est l'objet retourné par le .then précedent
     jsonPhotoDb = jsonObj;
 
-    showPhotographersByTag(jsonPhotoDb, photographersSection);
+    jsonPhotoDb["photographers"].forEach( (ph) => photographers.push(new Photographer(ph, photographersSection)) );
+
+    showAllPhotographers();
 
     document.querySelectorAll('.tag').forEach( 
         (li) => li.addEventListener("click",(e) => {
@@ -64,8 +137,12 @@ fetch("./FishEyeData.json")
             let tag = e.target.textContent.substring(1).toLowerCase();
             selectedTag = (selectedTag === tag) ? null : tag; // full version of that line is: if (selectedTag === tag) {selectedTag =  null;} else {selectedTag = tag;}
 
-            showPhotographersByTag(jsonPhotoDb, photographersSection, selectedTag);
+            if (selectedTag == null) {
+                showAllPhotographers();
+            } else {
+                showPhotographersByTag(selectedTag);
+            } 
+            
         }) 
     );
 });
-

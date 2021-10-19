@@ -1,7 +1,9 @@
-let jsonPhotoDb;
-let photographersSection = document.querySelector("section");
-let selectedTag = null;
-let photographers = [];
+// let jsonPhotoDb;
+// let photographersSection = document.querySelector("section");
+// let selectedTag = null;
+// let photographers = [];
+
+let manager = null;
 
 function Photographer(jsonPhotographerObj, parentElem) {
     this.json = jsonPhotographerObj;
@@ -50,21 +52,97 @@ function Photographer(jsonPhotographerObj, parentElem) {
     this.checkTag = function(tag) {
         return this.tags.includes(tag);
     }
-
-    // this.applyTagFilter = function(tag) {
-    //     if ( this.tags.includes(tag) ) {
-    //         this.show();
-    //     } else {
-    //         this.hide();
-    //     }
-    // }
   }
+
+
+function AllPhotographersPage(jsonObj) {
+    this.headerElem = document.querySelector("header");
+    this.navElem    = document.querySelector("nav");
+    this.navliElems = this.navElem.querySelectorAll('.tag');
+    this.mainElem   = document.querySelector("main");
+    this.titleElem = document.createElement("div");
+    this.titleElem.innerHTML = '<h1 class="title">Nos photographes</h1>';
+    this.sectionElem = document.createElement("section"); // section elem containing all photographers
+    this.json = jsonObj;
+    this.photographers = [];
+    this.prevSelectedTag = 'none'; // currently selected filter for photogrphers, 'none' mean show all
+    this.isOnScreen = false;
+
+    this.json["photographers"].forEach( (ph) => this.photographers.push(new Photographer(ph, this.sectionElem)) );
+
+    // register nav bar click events
+    this.navliElems.forEach( (li) => li.addEventListener( "click", (e) => manager.mainPage.filter(e.target) ) );
+
+    this.show = function() { // show whole page with navi bar and all photographers
+        if (!this.isOnScreen) {
+            if (this.headerElem.childNodes.length === 1) {
+                this.headerElem.appendChild(this.navElem);
+            }
+
+            this.mainElem.appendChild(this.titleElem);
+            this.mainElem.appendChild(this.sectionElem);
+
+            this.photographers.forEach( (ph) => ph.showInGallery() );
+
+            this.isOnScreen = true;
+        }
+    }
+
+    this.hide = function() { // remove page leaving only logo
+        if (this.isOnScreen) {
+            this.photographers.forEach( (ph) => ph.hideInGallery() );
+            this.mainElem.removeChild(this.sectionElem);
+            this.mainElem.removeChild(this.titleElem);
+            this.headerElem.removeChild(this.navElem)
+
+            this.isOnScreen = false;
+        }
+    }
+
+    this.filter = function(target) { // target - li elem which triggered filter event
+        let tag = target.textContent.substring(1).toLowerCase();
+        
+        if (tag === this.prevSelectedTag) {
+            tag = 'none';
+        }
+
+        this.navliElems.forEach( (li) => li.classList.remove("tag--active") );
+        this.photographers.forEach( (ph) => ph.hideInGallery() );
+
+        if (tag !== 'none') {
+            this.photographers.forEach( (ph) => { ph.checkTag(tag) && ph.showInGallery(); } );   // filter
+            target.classList.add("tag--active");
+
+        } else {
+            this.photographers.forEach( (ph) => { ph.showInGallery(); } ); // show all
+        }
+
+        this.prevSelectedTag = tag;
+    }
+}
+
+function PhotographerPage(jsonPhotographerObj, parentElem) {
+
+}
+
+
+function PhotographerSiteManager(jsonObj) {
+    this.json = jsonObj;
+    this.currentPage = 'main';
+    this.mainPage = new AllPhotographersPage(this.json);
+    this.photographersPages = new Map();
+
+    this.showMainPage = function() {
+        this.mainPage.show();
+    }
+}
 
 
 
 // Creates html elem conatining single photographer and returning this html elem
 // ph - json obj representing single photographer
 // returning created elem representing ph photographer
+/*
 function createPhotographerElem(ph) {
     let html = document.createElement("div");
     html.classList.add("card");
@@ -86,22 +164,25 @@ function createPhotographerElem(ph) {
 
     return html;
 }
+*/
 
+/*
 function showAllPhotographers() {
     photographers.forEach( (ph) => ph.hideInGallery() );
     photographers.forEach( (ph) => ph.showInGallery() );
 }
-
+*/
 // Add all photographers whith paricular tag, when tag == null add all
 // jsonObj - json obj with photographers db
 // targetElem - html element to which appand
 // tag - tag to show, when null show whole db
+/*
 function showPhotographersByTag(tag) {
 
     photographers.forEach( (ph) => ph.hideInGallery() );
     photographers.forEach( (ph) => { ph.checkTag(tag) && ph.showInGallery(); } );        
 }
-
+*/
 /*    
     let photographers = jsonObj["photographers"];
 
@@ -124,6 +205,11 @@ function showPhotographersByTag(tag) {
 fetch("./FishEyeData.json")
 .then( (response) => response.json()) // fonction fléchée; fonction standard aurait été écrit comme suit: .then(function(response){return response.json()})
 .then( (jsonObj)  =>  {                // jsonObj est l'objet retourné par le .then précedent
+
+    manager = new PhotographerSiteManager(jsonObj);
+    manager.showMainPage();
+
+/*
     jsonPhotoDb = jsonObj;
 
     jsonPhotoDb["photographers"].forEach( (ph) => photographers.push(new Photographer(ph, photographersSection)) );
@@ -145,4 +231,6 @@ fetch("./FishEyeData.json")
             
         }) 
     );
+*/
 });
+

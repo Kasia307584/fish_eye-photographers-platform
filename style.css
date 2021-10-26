@@ -42,10 +42,12 @@ ul li:focus {
     background-color:#901C1C;
     color: white;
 }
+
 .tag--active {
     background-color:#901C1C;
     color: white;
 }
+
 main > div {
     position: relative;
     display: flex;

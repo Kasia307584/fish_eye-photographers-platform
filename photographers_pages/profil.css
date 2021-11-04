@@ -100,7 +100,11 @@ div ul {
     padding-left: .7em;
     padding-right: .7em;;
     border-radius: .5em;
+    cursor: pointer;
 }
+.contact_param:hover {
+    background: #D3573C;
+  }
 
 .filter {
     display: flex;
@@ -189,4 +193,191 @@ i.fa-chevron-up {
   .info {
       display: flex;
       justify-content: space-between;
+      margin-bottom: 2em;
+      margin-top: .5em;
+  }
+  .info > p {
+      margin: 0;
+  }
+
+  .fixed-box {
+    position: fixed;
+    bottom: 0;
+    right: 300px;
+    width: 200px;
+    height: 50px;
+    background-color: #D3573C;
+  }
+
+
+  .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, .9);
+      z-index: 10;
+      overflow: auto;
+      transition: opacity .3s;
+  }
+  .lightbox.fadeOut {
+      opacity: 0;
+  }
+
+  .lightbox__next > i,
+  .lightbox__prev > i {
+      /* border: none; */
+      color: #901C1C;
+      /* background: center center / 100% 100%; */
+      width: 16px;
+      height: 28px;
+      position: fixed;
+      right: 0;
+      top: 50%;
+      margin-top: -14px;
+      z-index: 11;
+      opacity: .5;
+      cursor: pointer;
+      transition: opacity .3s;
+  }
+
+  .lightbox__next > i:hover,
+  .lightbox__prev > i:hover,
+  .lightbox__close > i:hover {
+      opacity: 1;
+  }
+
+  .lightbox__prev > i {
+    right: auto;
+    left: 0;
+    transform: rotate(180deg);
+  }
+
+  .lightbox__close > i {
+      color: white;
+      width: 15px;
+      height: 15px;
+      position: fixed;
+      top: 25px;
+      right: 25px;
+      opacity: .5;
+      transition: opacity .3s;
+  }
+  .lightbox__container img {
+      max-width: 100%;
+      height: auto;
+  }
+
+  .lightbox__container {
+      display: flex;
+      /* align-items: center; */
+      justify-content: center;
+      margin-left: 50px;
+      margin-right: 50px;
+      min-height: 100vh;
+  }
+
+
+
+  
+  
+  /* Modal form */
+  
+  .button {
+    background: #fe142f;
+    margin-top: 0.5em;
+    padding: 1em;
+    color: #fff;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .button:hover {
+    background: #3876ac;
+  }
+  
+  .bground {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(26, 39, 156, 0.4);
+  }
+  
+  .content {
+    margin: 5% auto;
+    width: 100%;
+    max-width: 500px;
+    animation-name: modalopen;
+    animation-duration: var(--modal-duration);
+    background: #232323;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    padding-top: 10px;
+  }
+  
+  .modal-body {
+    padding: 15px 8%;
+    margin: 15px auto;
+  }
+  
+  label {
+    font-family: var(--font-default);
+    font-size: 15px; /* j'ai diminué la taille de la fonte pour faire plus resemblant à la maquette */
+    font-weight: normal;
+    display: inline-block;
+    margin-bottom: 11px;
+    margin-top: 0.4em; /* j'ajoute cette propieté pour décoller la phrase de champs d'input au-dessus */
+  }
+  input {
+    padding: 8px;
+    border: 0.8px solid #ccc;
+    outline: none;
+  }
+
+  .close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 32px;
+    height: 32px;
+    opacity: 1;
+    cursor: pointer;
+    transform: scale(0.7);
+  }
+  .close:before,
+  .close:after {
+    position: absolute;
+    left: 15px;
+    content: " ";
+    height: 33px;
+    width: 3px;
+    background-color: #fff;
+  }
+  .close:before {
+    transform: rotate(45deg);
+  }
+  .close:after {
+    transform: rotate(-45deg);
+  }
+  .btn-submit,
+  .btn-signup,
+  .btn-close {
+    background: #fe142f;
+    display: block;
+    margin: 0 auto;
+    border-radius: 7px;
+    font-size: 1rem;
+    padding: 12px 82px;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
   }

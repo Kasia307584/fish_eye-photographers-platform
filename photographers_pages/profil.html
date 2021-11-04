@@ -8,12 +8,14 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+        <!-- <script src="some-path-where-you-dump-the-javascript-libraries/lib/bodyScrollLock.js"></script> -->
+        
         <title>Photographer</title>
     </head>
     <body>
         <header>
 
-            <div><a href="index.html"><img src="../photos/logo_fisheye.png" alt="logo_fisheye" id="logo"></a></div>
+            <div><a href="../index.html"><img src="../photos/logo_fisheye.png" alt="logo_fisheye" id="logo"></a></div>
             
         </header>
         
@@ -74,86 +76,6 @@
                         </div>
                     </div>
                     <div class="photo">
-                        <video src="photos/Mimi/Animals_Wild_Horses_in_the_mountains.mp4" alt="wild_horses"></video>
-                        <div class="info">
-                            <p>Arc-en-ciel</p>
-                            <div>
-                                <p>12</p>
-                                <i></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo">
-                        <img src="photos/Mimi/Event_BenevidesWedding.jpg" alt="wedding">
-                        <div class="info">
-                            <p>Arc-en-ciel</p>
-                            <div>
-                                <p>12</p>
-                                <i></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo">
-                        <img src="photos/Mimi/Event_PintoWedding.jpg" alt="wedding">
-                        <div class="info">
-                            <p>Arc-en-ciel</p>
-                            <div>
-                                <p>12</p>
-                                <i></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo">
-                        <img src="photos/Mimi/Event_SeasideWedding.jpg" alt="wedding">
-                        <div class="info">
-                            <p>Arc-en-ciel</p>
-                            <div>
-                                <p>12</p>
-                                <i></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo">
-                        <img src="photos/Mimi/Portrait_Background.jpg" alt="portrait">
-                        <div class="info">
-                            <p>Arc-en-ciel</p>
-                            <div>
-                                <p>12</p>
-                                <i></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo">
-                        <img src="photos/Mimi/Portrait_Nora.jpg" alt="portrait">
-                        <div class="info">
-                            <p>Arc-en-ciel</p>
-                            <div>
-                                <p>12</p>
-                                <i></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo">
-                        <img src="photos/Mimi/Portrait_Wednesday.jpg" alt="portrait">
-                        <div class="info">
-                            <p>Arc-en-ciel</p>
-                            <div>
-                                <p>12</p>
-                                <i></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo">
-                        <img src="photos/Mimi/Travel_HillsideColor.jpg" alt="travel">
-                        <div class="info">
-                            <p>Arc-en-ciel</p>
-                            <div>
-                                <p>12</p>
-                                <i></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo">
                         <img src="photos/Mimi/Travel_Lonesome.jpg" alt="travel">
                         <div class="info">
                             <p>Arc-en-ciel</p>
@@ -163,10 +85,78 @@
                             </div>
                         </div>
                     </div> -->
-                </div>
+               </div>
+               <div class="fixed-box">
+                <span><span class="likes"></span><i class="fas fa-heart"></i></span>
+                <span class="price"><span>
+            </div>
+
+                <div class="bground">
+                    <div class="content">
+                      <span class="close"></span>
+                      <div class="modal-body">
+                        <form
+                          name="reserve"
+                          action="index.html"
+                          method="get"
+                        >
+                          <div
+                            class="formData" data-error="Veuillez entrer un prénom comportant 2 caractères ou plus." data-error-visible="false">
+                            <label for="first">Prénom</label><br>
+                            <input
+                              class="text-control"
+                              type="text"
+                              id="first"
+                              name="first"
+                              minlength="2"
+                              required 
+                            /><br> 
+                          </div>
+                          <div
+                            class="formData" data-error="Veuillez entrer un nom comportant 2 caractères ou plus." data-error-visible="false">
+                            <label for="last">Nom</label><br>
+                            <input
+                              class="text-control"
+                              type="text"
+                              id="last"
+                              name="last"
+                              minlength="2"
+                              required 
+                            /><br>
+                          </div>
+                          <div
+                            class="formData" data-error="Veuillez entrer une adresse email valide." data-error-visible="false">
+                            <label for="email">E-mail</label><br>
+                            <input
+                              class="text-control"
+                              type="email"
+                              id="email"
+                              name="email"
+                              required
+                            /><br>
+                          </div>
+                          <div
+                            class="formData" data-error="Veuillez entrer une adresse email valide." data-error-visible="false">
+                            <label for="email">Votre message</label><br>
+                            <input
+                              class="text-control"
+                              type="text"
+                              id="text"
+                              name="text"
+                              required
+                            /><br>
+                          </div>
+                          <input
+                            class="btn-submit button"
+                            type="submit"
+                            value="Envoyer"
+                        />
+                        </form>
             </section>
         </main>
 
         <script src="profil.js"></script>
+        
+        
 
     </body>

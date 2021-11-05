@@ -21,6 +21,7 @@ function Photographer(jsonPhotographerObj, parentElem) {
         html.innerHTML =`<div>
                             <a href="photographers_pages/profil.html?id=${this.json.id}">
                             <img src="photos/Photographers_ID_Photos/${this.json.portrait}" alt="portrait_photographe">
+                            <h2>${this.json.name}</h2>
                             </a>
                         </div>
                         <p class="location"> ${this.json.city}, ${this.json.country} </p>

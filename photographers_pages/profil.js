@@ -39,13 +39,13 @@ function Media(media, parentElem) {
                                     <div class="info">
                                         <p>${this.title}</p>
                                         <div>
-                                            <span>${this.likesCounter}</span>
-                                            <i id="${this.id}" class="fas fa-heart"></i>
+                                            <p>${this.likesCounter}</p>
+                                            <i class="fas fa-heart" id="${this.id}"></i>
                                         </div>
                                     </div>`;
 
         // likes counter under the photo/video
-        this.likesCounterElem = this.imageElem.querySelectorAll('div.info > div > span')[0];
+        this.likesCounterElem = this.imageElem.querySelectorAll('div.info > div > p')[0];
 
         // heart icon under the photo
         let heartIconElem = this.imageElem.querySelectorAll('div.info > div > i')[0];
@@ -84,8 +84,8 @@ function PhotographerDetailedPage(json, photographerId) {
     this.sectionTop = document.querySelector('section.top');
     this.sectionMain = document.querySelector('section.main');
     this.divPhotos = this.sectionMain.querySelector('div.photos');
-    this.likesCounterElem = this.sectionMain.querySelectorAll('span.likes')[0]; // elem dispalying likes counter - cumulative number of all likes
-    this.priceElem = this.sectionMain.querySelectorAll('span.price')[0]; // price per h
+    this.likesCounterElem = this.sectionMain.querySelectorAll('p.likes')[0]; // elem dispalying likes counter - cumulative number of all likes
+    this.priceElem = this.sectionMain.querySelectorAll('p.price')[0]; // price per h
     this.likesCounter = this.media.reduce( (previousValue, currentValue) => previousValue + currentValue.likes, 0); // cumulative number of all likes
     this.images = []; // array of Image obj (dom elems with images/videos)
     this.idToImageMap = new Map();
@@ -129,7 +129,7 @@ function PhotographerDetailedPage(json, photographerId) {
     this.likesCounterElem.textContent = this.likesCounter;
 
     // update proces
-    this.priceElem.textContent = this.photographer.price + '€/jour'
+    this.priceElem.textContent = this.photographer.price + '€ / jour'
 
     // for current photograpger (photographerId) populate <section class="top"> and <div class="photos">
     this.show = function(sortType) {

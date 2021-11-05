@@ -1,7 +1,7 @@
 body, html {
     font-family: 'Raleway', sans-serif;
     font-size: .9em;
-    max-width: 1440px;
+    max-width: 1366px;
 	margin: auto;
 }
 header {
@@ -10,7 +10,12 @@ header {
     margin: 1.5em 3em;
 }
 header img {
-    height: 4.5em;
+    height: 4em;
+    margin-left: 2em;
+}
+button {
+    background-color: white;
+    border: none;
 }
 nav {
     padding-left: 3em;
@@ -22,7 +27,6 @@ nav ul {
     padding: 0;
 }
 ul li {
-    cursor: pointer;
     color: #901C1C;
     border: 1px solid #a7a6a6;
     border-radius: 50px;
@@ -30,15 +34,8 @@ ul li {
     padding: .1em .5em;
     margin: .2em;
 }
-ul li:hover {
-    background-color:#901C1C;
-    color: white;
-}
-ul li:active {
-    background-color:#901C1C;
-    color: white;
-}
-ul li:focus {
+nav ul li:hover {
+    cursor: pointer;
     background-color:#901C1C;
     color: white;
 }
@@ -58,13 +55,13 @@ h1 {
     font-size: 1.7em;
     font-weight: lighter;
     position: absolute;
-    right: 50px;
+    right: 120px;
     top: -75px;
 }
 section {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: 3em;
 
 }
@@ -84,6 +81,9 @@ h2 {
     font-weight: lighter;
     font-size: 2.1em;
     margin-bottom: .2em;
+}
+a {
+    text-decoration: none;
 }
 .location {
     color:#901C1C;

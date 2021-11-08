@@ -21,6 +21,8 @@ function Media(media, parentElem) {
     this.likesCounter = this.media.likes; // number of likes
     this.date = this.media.date; // data of image
     this.imageElem = null; // dom elem with image/video, likes heart, ..
+    this.mediaSrc = '';
+    this.mediaType = 'img';
     this.likesCounterElem = null; // dom elem with number of likes
     this.isOnScreen = false;
 
@@ -29,10 +31,13 @@ function Media(media, parentElem) {
         this.imageElem.className = 'photo';
 
         let mediaLink = '';
-        if ('image' in this.media) {  
-            mediaLink = `<img src="../photos/${this.media.photographerId}/${this.media.image}" alt="TBD">`;
-        } else { 
-            mediaLink = `<video src="../photos/${this.media.photographerId}/${this.media.video}" alt="TBD"></video>`;
+        if ('image' in this.media) {
+            this.mediaSrc = `../photos/${this.media.photographerId}/${this.media.image}`;
+            mediaLink = `<img src="${this.mediaSrc}" alt="TBD" data-media-id="${this.id}">`;
+        } else {
+            this.mediaType = 'video';
+            this.mediaSrc = `../photos/${this.media.photographerId}/${this.media.video}`;
+            mediaLink = `<video src="${this.mediaSrc}" alt="TBD" data-media-id="${this.id}"></video>`;
         }
 
         this.imageElem.innerHTML = `${mediaLink}
@@ -40,7 +45,7 @@ function Media(media, parentElem) {
                                         <p>${this.title}</p>
                                         <div>
                                             <p>${this.likesCounter}</p>
-                                            <i class="fas fa-heart" id="${this.id}"></i>
+                                            <i class="fas fa-heart" data-media-id="${this.id}"></i>
                                         </div>
                                     </div>`;
 
@@ -50,8 +55,14 @@ function Media(media, parentElem) {
         // heart icon under the photo
         let heartIconElem = this.imageElem.querySelectorAll('div.info > div > i')[0];
 
-        // click event responsible for 'heart' clicking, which increase likes counter by 1
-        heartIconElem.addEventListener( "click", (e) => page.updateLikesCounter(parseInt(e.target.id)) );
+        // heart icon on click event responsible for increase likes counter
+        heartIconElem.addEventListener( "click", (e) => page.updateLikesCounter(parseInt(e.target.dataset.mediaId)) );
+
+        // image on click event invoking Lightbox 
+        this.imageElem.querySelectorAll('img, video')[0].addEventListener('click', e => {
+            e.preventDefault();
+            new Lightbox(parseInt(e.target.dataset.mediaId), page.images);
+        });
     }
 
     this.buildImageElem();
@@ -137,13 +148,13 @@ function PhotographerDetailedPage(json, photographerId) {
 
         switch (sortType) {
             case 'popularite':
-                this.images.slice().sort(compareLikes).forEach( (im) => im.showInGallery() );
+                this.images.sort(compareLikes).forEach( (im) => im.showInGallery() );
                 break;            
             case 'date':
-                this.images.slice().sort(compareDate).forEach( (im) => im.showInGallery() );
+                this.images.sort(compareDate).forEach( (im) => im.showInGallery() );
                 break;            
             case 'titre':
-                this.images.slice().sort(compareTitle).forEach( (im) => im.showInGallery() );
+                this.images.sort(compareTitle).forEach( (im) => im.showInGallery() );
                 break;            
             default: // == 'none'
                 this.images.forEach( (im) => im.showInGallery() );
@@ -163,56 +174,42 @@ function PhotographerDetailedPage(json, photographerId) {
 }
 
 
-/**
- * @property {HTMLElement} element
- * @property {string[]} images Image's links of lightbox 
- */
+// class implementing lightbox for images and video
 class Lightbox {
 
-    static init() {
-        const links = Array.from(document.querySelectorAll('div.photos img[src$=".jpg"], div.photos video[src$=".mp4"]'));
-        const gallery = links.map(link => link.getAttribute('src'));
-        links.forEach(link => link.addEventListener('click', e => {
-            e.preventDefault();
-            new Lightbox(e.currentTarget.getAttribute('src'), gallery);
-        }))
-    }
-
-    /**
-     * 
-     * @param {string} url Image's URL
-     * @param {string[]} images Image's links of lightbox 
-     * @param {string} url Currently displayed image
-     */
-    constructor(url, images) {
-        this.element = this.buildDOM(url);
+    // mediaId - media id from json
+    // images - array of Images
+    constructor(mediaId, images) {  // (url, images)
         this.images = images;
-        this.loadImage(url);
+        this.currIndex = images.findIndex( (el) => el.id === mediaId );
+        this.element = this.buildDOM(this.images[this.currIndex]);
+        this.container = this.element.querySelector('.lightbox__container');
+        this.title = this.element.querySelector('p.lightbox__title');
+        this.loadImage(this.images[this.currIndex]); // this.loadImage(url);
         this.onKeyUp = this.onKeyUp.bind(this);
         document.body.appendChild(this.element);
-        // disableBodyScroll(this.element);
         document.addEventListener('keyup', this.onKeyUp)
     }
 
-    /**
-     * 
-     * @param {string} url Image's URL 
-     */
-    loadImage(url) {
-        this.url = null;
-        const image = new Image();
-        const container = this.element.querySelector('.lightbox__container');
-        container.innerHTML = '';
-        image.onload = () => {
-            container.appendChild(image)
-            this.url = url
+    // loads image/video into lightbox
+    loadImage(imgObj) {  // loadImage(url)
+        this.container.innerHTML = '';
+
+        let media = '';
+        if (imgObj.mediaType === 'img') {
+            media = `<img src="${imgObj.mediaSrc}" alt="TBD">`;
+        } else {
+            media = `<video controls>
+                        <source src="${imgObj.mediaSrc}" type="video/mp4" width="620">
+                        <p>Sorry, your browser doesn't support embedded videos.</p>
+                    </video>`;
         }
-        image.src = url;
+
+        this.container.innerHTML = media;
+        this.title.textContent = imgObj.title;
     }
-    /**
-     * 
-     * @param {KeyboardEvent} e 
-     */
+
+    // keybord navigation events
     onKeyUp(e) {
         if (e.key === 'Escape') {
             this.close(e);
@@ -222,10 +219,8 @@ class Lightbox {
             this.next(e);
         }
     }
-    /**
-     * 
-     * @param {MouseEvent/KeyboardEvent} e 
-     */
+
+    // close lightbox on mouse/keyboard event 
     close(e) {
         e.preventDefault();
         this.element.classList.add('fadeOut');
@@ -235,40 +230,41 @@ class Lightbox {
         }, 500);
         document.removeEventListener('keyup', this.onKeyUp);
     }
-    /**
-     * 
-     * @param {MouseEvent/KeyboardEvent} e 
-     */
+
+    // load next image/video on mouse/keyboard event 
     next(e) {
         e.preventDefault();
-        let i = this.images.findIndex(image => image === this.url);
-        if(i === this.images.length - 1) {
-            i = -1;
+
+        if(this.currIndex === this.images.length - 1) {
+            this.currIndex = -1;
         }
-        this.loadImage(this.images[i + 1])
-    }
-    /**
-     * 
-     * @param {MouseEvent/KeyboardEvent} e 
-     */
-     prev(e) {
-        e.preventDefault();
-        let i = this.images.findIndex(image => image === this.url);
-        if(i === 0) {
-            i = this.images.length;
-        }
-        this.loadImage(this.images[i - 1]);
+        this.currIndex++;
+
+        this.loadImage(this.images[this.currIndex])
     }
 
-    buildDOM(url) {
+    // load previous image/video on mouse/keyboard event 
+    prev(e) {
+        e.preventDefault();
+
+        if(this.currIndex === 0) {
+            this.currIndex = this.images.length;
+        }
+        this.currIndex--;
+
+        this.loadImage(this.images[this.currIndex]);
+    }
+
+    buildDOM(imgObj) {
         const dom = document.createElement('div');
         dom.classList.add('lightbox');
+
         dom.innerHTML = `   <button class="lightbox__close"><i class="fas fa-times"></i></button>
                             <button class="lightbox__next"><i class="fas fa-chevron-right"></i></button>
                             <button class="lightbox__prev"><i class="fas fa-chevron-right"></i></button>
-                            <div class="lightbox__container">
-                                <img src="${url}" alt=""> 
-                            </div>`;
+                            <div class="lightbox__container"></div>
+                            <p class="lightbox__title"></p>`;
+
         dom.querySelector('.lightbox__close').addEventListener('click', this.close.bind(this));
         dom.querySelector('.lightbox__next').addEventListener('click', this.next.bind(this));
         dom.querySelector('.lightbox__prev').addEventListener('click', this.prev.bind(this));
@@ -276,9 +272,6 @@ class Lightbox {
         return dom;
     }
 }
-
-
-
 
 fetch("../FishEyeData.json")
 .then( (response) => response.json()) // fonction fléchée; fonction standard aurait été écrit comme suit: .then(function(response){return response.json()})
@@ -293,7 +286,7 @@ fetch("../FishEyeData.json")
 
     page = new PhotographerDetailedPage(jsonObj, photographerId);
     page.show('popularite');
-    Lightbox.init();
+    //Lightbox.init(page.idToImageMap);
 });
 
 // Contact form modal box

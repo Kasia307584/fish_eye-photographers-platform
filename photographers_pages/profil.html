@@ -5,8 +5,8 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="profil.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet">
+        <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet"> -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
         <!-- <script src="some-path-where-you-dump-the-javascript-libraries/lib/bodyScrollLock.js"></script> -->
         
@@ -28,8 +28,9 @@
                     <div class="dropdown">
                         <button class="dropbtn">Popularité&emsp;<i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up"></i></button>
                         <div class="dropdown-content">
-                        <a href="#">Date</a>
-                        <a href="#">Titre</a>
+                            <button class="dropdown-content__popularite">Popularité</button>
+                            <button class="dropdown-content__date">Date</button>
+                            <button class="dropdown-content__titre" id="last_filter">Titre</button>
                         </div>
                     </div>
                 </div>
@@ -42,11 +43,13 @@
 
                 <div class="bground">
                     <div class="content">
+                      <p class="modal-title">Contactez-moi</p>
+                      <p class="modal-title__name"></p>
                       <span class="close"></span>
                       <div class="modal-body">
                         <form
                           name="reserve"
-                          action="index.html"
+                          action="profil.html"
                           method="get"
                         >
                           <div
@@ -75,7 +78,7 @@
                           </div>
                           <div
                             class="formData" data-error="Veuillez entrer une adresse email valide." data-error-visible="false">
-                            <label for="email">E-mail</label><br>
+                            <label for="email">Email</label><br>
                             <input
                               class="text-control"
                               type="email"
@@ -88,7 +91,7 @@
                             class="formData" data-error="Veuillez entrer une adresse email valide." data-error-visible="false">
                             <label for="email">Votre message</label><br>
                             <input
-                              class="text-control"
+                              class="text-control larger-input"
                               type="text"
                               id="text"
                               name="text"
@@ -96,7 +99,7 @@
                             /><br>
                           </div>
                           <input
-                            class="btn-submit button"
+                            class="btn-submit"
                             type="submit"
                             value="Envoyer"
                         />
@@ -104,7 +107,7 @@
                       </div>
                     </div>
                 </div>
-                
+
             </section>
         </main>
 

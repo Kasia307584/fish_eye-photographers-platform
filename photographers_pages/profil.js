@@ -95,11 +95,13 @@ function PhotographerDetailedPage(json, photographerId) {
     this.sectionTop = document.querySelector('section.top');
     this.sectionMain = document.querySelector('section.main');
     this.divPhotos = this.sectionMain.querySelector('div.photos');
-    this.likesCounterElem = this.sectionMain.querySelectorAll('p.likes')[0]; // elem dispalying likes counter - cumulative number of all likes
-    this.priceElem = this.sectionMain.querySelectorAll('p.price')[0]; // price per h
+    this.likesCounterElem = this.sectionMain.querySelector('p.likes'); // elem dispalying likes counter - cumulative number of all likes
+    this.priceElem = this.sectionMain.querySelector('p.price'); // price per h
+    this.sortTypeElem = this.sectionMain.querySelector('button.dropbtn');
     this.likesCounter = this.media.reduce( (previousValue, currentValue) => previousValue + currentValue.likes, 0); // cumulative number of all likes
     this.images = []; // array of Image obj (dom elems with images/videos)
     this.idToImageMap = new Map();
+    this.contactMeModalWin = null;
 
     this.updateTopSection = function() { 
         // updating <section class="top">
@@ -113,7 +115,9 @@ function PhotographerDetailedPage(json, photographerId) {
 
         htmlElem.innerHTML =`<div class="first_line">
                                 <div class="name"><h1>${this.photographer.name}</h1></div>
-                                <div class="contact_param"><p>Contactez-moi</p></div>
+                                <button name="contactez_moi" type="button" class="contact_param">
+                                    <p>Contactez-moi</p>
+                                </button>
                             </div>
                             <p class="location">${this.photographer.city}, ${this.photographer.country}</p>
                             <p class="motto">${this.photographer.tagline}</p>
@@ -129,6 +133,17 @@ function PhotographerDetailedPage(json, photographerId) {
     }
 
     this.updateTopSection();
+
+    // 'contact me' modal window
+    this.contactMeModalWin = new ModalContactMe(this.photographer.name);
+
+    // register click event launching 'contact me' modal window
+    document.querySelector("button.contact_param").addEventListener("click", this.contactMeModalWin.show.bind(this.contactMeModalWin));
+
+    // register click events for sorting type (Trier par)
+    document.querySelector(".dropdown-content__popularite").addEventListener( "click", (e) => {let show = this.show.bind(this); show('popularite');} );
+    document.querySelector(".dropdown-content__date").addEventListener( "click",       (e) => {let show = this.show.bind(this); show('date')} );
+    document.querySelector(".dropdown-content__titre").addEventListener( "click",      (e) => {let show = this.show.bind(this); show('titre')} );
 
     for (const m of this.media) {
         let mediaObj = new Media(m, this.divPhotos);
@@ -148,17 +163,23 @@ function PhotographerDetailedPage(json, photographerId) {
 
         switch (sortType) {
             case 'popularite':
+                this.sortTypeElem.firstChild.nodeValue = 'Popularité';
                 this.images.sort(compareLikes).forEach( (im) => im.showInGallery() );
-                break;            
+                break;
             case 'date':
+                this.sortTypeElem.firstChild.nodeValue = 'Date';
                 this.images.sort(compareDate).forEach( (im) => im.showInGallery() );
-                break;            
+                break;
             case 'titre':
+                this.sortTypeElem.firstChild.nodeValue = 'Titre';
                 this.images.sort(compareTitle).forEach( (im) => im.showInGallery() );
-                break;            
+                break;
             default: // == 'none'
-                this.images.forEach( (im) => im.showInGallery() );
+                this.sortTypeElem.firstChild.nodeValue = 'Popularité';
+                this.images.sort(compareLikes).forEach( (im) => im.showInGallery() );
         }
+
+        console.log(this.sortTypeElem.innerHTML);
     } 
 
     this.hide = function() { 
@@ -286,27 +307,41 @@ fetch("../FishEyeData.json")
 
     page = new PhotographerDetailedPage(jsonObj, photographerId);
     page.show('popularite');
-    //Lightbox.init(page.idToImageMap);
 });
 
 // Contact form modal box
-// DOM Elements => mets dans le then
-const modalbg  = document.querySelector(".bground");
-const modalBtn = document.querySelector(".filter p");
-const closeIcon = document.querySelector(".close");
+class ModalContactMe {
+    bground = null;
 
-// launch modal event => mets dans le then
-modalBtn.addEventListener("click", launchModal);
+    constructor(photographerName) {
+        this.bground  = document.querySelector(".bground");
 
-// launch modal form => peut etre en dehors de then
-function launchModal() {
-  modalbg.style.display = "block";
-}
+        document.querySelector(".modal-title__name").textContent = photographerName;
 
-// close modal event => mets dans le then
-closeIcon.addEventListener("click", closeModal);
+        const closeIcon    = document.querySelector(".close");
+        const submitBtn    = document.querySelector("input.btn-submit");
 
-// close modal form => peut etre en dehors de then
-function closeModal() {
-  modalbg.style.display = "none";
+        // close modal event
+        closeIcon.addEventListener("click", this.close.bind(this));
+
+        // submit modal event
+        submitBtn.addEventListener("click", this.submit.bind(this));
+    }
+
+    // launch modal form 
+    show(e) {
+        this.bground.style.display = "block";
+    }
+
+    // submit the form, for a moment does nothing
+    submit(e) {
+        e.preventDefault();
+        this.close();
+        //document.querySelector("form").submit();
+    }
+
+    // close modal form
+    close(e) {
+        this.bground.style.display = "none";
+    }
 }

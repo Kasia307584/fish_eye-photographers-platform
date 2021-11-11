@@ -39,11 +39,28 @@ nav ul li:hover {
     background-color:#901C1C;
     color: white;
 }
-
 .tag--active {
     background-color:#901C1C;
     color: white;
 }
+#sticky {
+    /* display: none; */
+    display: flex;
+    position: fixed;
+    left: 50%; 
+    top: 5px;
+    width: 130px; 
+    height: 20px;
+    background-color: #D3573C;
+    border-radius: 5px;
+    z-index: 1;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+  }
+  #sticky p {
+      margin: auto;
+  }
 
 main > div {
     position: relative;

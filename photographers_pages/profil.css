@@ -9,7 +9,7 @@ header {
 }
 header img {
   height: 4em;
-  margin-left: -2.5em;
+  margin-left: -2.8em;
 }
 p {
   font-weight: bold;
@@ -33,6 +33,7 @@ h1 {
   font-size: 2.5em;
   margin-bottom: .2em;
   margin-top: .3em;
+  font-weight: lighter;
 }
 .name {
   width: 300px;
@@ -40,12 +41,14 @@ h1 {
 .motto {
   font-size: .9em;
   margin: .8em 0;
+  font-weight: lighter;
 }
 .location {
   color:#901C1C;
   font-size: 1.1em;
   margin-top: 0;
   margin-bottom: .2em;
+  font-weight: lighter;
 }
 div ul {
   display: flex;
@@ -61,6 +64,7 @@ ul li {
     text-align: center;
     padding: .1em .5em;
     margin: .2em;
+    font-size: .9em;
 }
 
 .first_line {
@@ -72,7 +76,7 @@ ul li {
     color: white;
     border-radius: .5em;
     cursor: pointer;
-    height: 80%;
+    height: 75%;
 }
 .contact_param p {
   padding: 0 1em;
@@ -96,7 +100,7 @@ ul li {
     border: none;
     width: 120px;
     border-bottom: 1px solid white;
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 5px;
     text-align: left;
   }
 i.fa-chevron-up {
@@ -118,22 +122,29 @@ i.fa-chevron-up {
     width: 120px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+    border-radius: 0px 0px 5px 5px;
   }
   
   /* Links inside the dropdown */
-  .dropdown-content a {
+  .dropdown-content > * {
     color: white;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     border-bottom: 1px solid white;
+    width: 120px;
+    text-align: left;
   }
-  .dropdown-content:nth-child(2) {
+  .dropdown-content:nth-child(3) {
       border-radius: 0px 0px 5px 5px;
+  }
+  #last_filter {
+    border-bottom: none;
+    border-radius: 0px 0px 5px 5px;
   }
   
   /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {
+  .dropdown-content > *:hover {
     background-color: #D3573C;
     color: black;    
 }
@@ -146,7 +157,10 @@ i.fa-chevron-up {
   .dropdown:hover .fa-chevron-up {
     display: inline-block;
 }
-
+  button {
+    border: none;
+    background-color: #901C1C;
+  }
   /* Change the background color of the dropdown button when the dropdown content is shown */
   /* .dropdown:hover .dropbtn {background-color: #D3573C;} */
 
@@ -160,12 +174,11 @@ i.fa-chevron-up {
     content: "";
     flex: 0 0 32%;
     max-width: 390px;
-    
   }
-  .photos img{
+  .photo img{
     object-fit: cover;
   }
-  .photos img,video {
+  .photo img, video {
     height: 350px;
     width: 390px;
     cursor: pointer;
@@ -220,7 +233,7 @@ i.fa-chevron-up {
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, .9);
+      background-color: white;
       z-index: 10;
       overflow: auto;
       transition: opacity .3s;
@@ -228,59 +241,56 @@ i.fa-chevron-up {
   .lightbox.fadeOut {
       opacity: 0;
   }
-
   .lightbox__next > i,
   .lightbox__prev > i {
-      /* border: none; */
       color: #901C1C;
-      /* background: center center / 100% 100%; */
-      width: 16px;
-      height: 28px;
+      font-size: 30px;
       position: fixed;
-      right: 0;
       top: 50%;
       margin-top: -14px;
       z-index: 11;
-      opacity: .5;
       cursor: pointer;
       transition: opacity .3s;
   }
-
+  .lightbox__prev > i {
+    left: 500px;
+    transform: rotate(180deg);
+  }
+  .lightbox__next > i {
+    right: 500px;
+  }
+  .lightbox__close > i {
+      color: #901C1C;
+      font-size: 30px;
+      position: fixed;
+      top: 115px;
+      right: 500px;
+      transition: opacity .3s;
+  }
   .lightbox__next > i:hover,
   .lightbox__prev > i:hover,
   .lightbox__close > i:hover {
-      opacity: 1;
-  }
-
-  .lightbox__prev > i {
-    right: auto;
-    left: 0;
-    transform: rotate(180deg);
-  }
-
-  .lightbox__close > i {
-      color: white;
-      width: 15px;
-      height: 15px;
-      position: fixed;
-      top: 25px;
-      right: 25px;
       opacity: .5;
-      transition: opacity .3s;
   }
-  .lightbox__container img {
-      max-width: 100%;
-      height: auto;
+  .lightbox__container img, .lightbox__container video {
+    height: 800px;
+    width: 800px;
+    margin: auto;
+    object-fit: cover;
   }
-
   .lightbox__container {
       display: flex;
-      /* align-items: center; */
-      justify-content: center;
       margin-left: 50px;
       margin-right: 50px;
       min-height: 100vh;
   }
+  .lightbox__title {
+    position: absolute;
+    bottom: 55px;
+    left: 610px;
+    color: #901C1C;
+  }
+
 
 
 
@@ -288,18 +298,18 @@ i.fa-chevron-up {
   
   /* Modal form */
   
-  .button {
-    background: #fe142f;
+  /* .button {
+    background: #901C1C;
     margin-top: 0.5em;
     padding: 1em;
     color: #fff;
     border-radius: 15px;
     cursor: pointer;
     font-size: 16px;
-  }
+  } */
   
   .button:hover {
-    background: #3876ac;
+    background: #D3573C;
   }
   
   .bground {
@@ -317,34 +327,46 @@ i.fa-chevron-up {
   .content {
     margin: 5% auto;
     width: 100%;
-    max-width: 500px;
-    animation-name: modalopen;
-    animation-duration: var(--modal-duration);
-    background: #232323;
-    border-radius: 10px;
+    max-width: 400px;
+    background: #D3573C;
+    border-radius: 3px;
     overflow: hidden;
     position: relative;
-    color: #fff;
     padding-top: 10px;
   }
   
   .modal-body {
-    padding: 15px 8%;
+    padding: 15px 5%;
     margin: 15px auto;
+  }
+  .modal-title {
+    font-size: xx-large;
+    margin: 0;
+    padding: 0 0 0 20px;
+    font-weight: lighter;
+  }
+  .modal-title__name {
+    font-size: xx-large;
+    margin: 0;
+    padding: 0 0 0 20px;
+    font-weight: lighter;
   }
   
   label {
-    font-family: var(--font-default);
-    font-size: 15px; /* j'ai diminué la taille de la fonte pour faire plus resemblant à la maquette */
-    font-weight: normal;
+    font-size: 1.3em; 
     display: inline-block;
-    margin-bottom: 11px;
-    margin-top: 0.4em; /* j'ajoute cette propieté pour décoller la phrase de champs d'input au-dessus */
+    margin-bottom: 2px;
+    margin-top: 5px; 
   }
   input {
-    padding: 8px;
+    padding: 10px;
     border: 0.8px solid #ccc;
     outline: none;
+    border-radius: 3px;
+    width: 95%;
+  }
+  .larger-input {
+    padding: 10px 10px 120px 10px
   }
 
   .close {
@@ -372,25 +394,26 @@ i.fa-chevron-up {
   .close:after {
     transform: rotate(-45deg);
   }
-  .btn-submit,
-  .btn-signup,
-  .btn-close {
-    background: #fe142f;
+  .btn-submit {
+    background: #901C1C;
     display: block;
-    margin: 0 auto;
-    border-radius: 7px;
-    font-size: 1rem;
-    padding: 12px 82px;
+    margin-top: 15px;
+    border-radius: 3px;
+    padding: 10px 25px;
     color: #fff;
     cursor: pointer;
     border: 0;
+    font-size: .9em;
+    width: 30%;
   }
 
   @media screen and (max-width: 414px) {
-    /* body {
-      margin: auto;
-      width: 80%;
-    } */
+    body {
+      margin: 0 1em;
+    }
+    .name h1 {
+      width: 225px;
+    }
     .top {
       background-color: white;
       display: block;
@@ -401,8 +424,8 @@ i.fa-chevron-up {
       position: absolute;
       top: 105px;
       right: 15px;
-      height: 130px;
-      width: 130px;
+      height: 110px;
+      width: 110px;
     }
     .filter {
       display: none;
@@ -413,6 +436,9 @@ i.fa-chevron-up {
       bottom: 30px;
       right: 35%;
     }
+    .contact_param p {
+      margin: auto;
+    }
     .fixed-box {
       display: none;
     }
@@ -421,17 +447,54 @@ i.fa-chevron-up {
     }
     .photos {
       margin-top: 3em;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
     }
     .photo {
       width: 100%;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
     }
-    .photo img {
-      width: 90%;
+    .photo img, video {
+      width: 100%;
+      height: 225px;
+    }
+
+    .content {
+      margin: auto;
+      height: 1000px;
+    }
+    .btn-submit {
+      margin: auto;
+      margin-top: 2em;
+    }
+    .input {
+      padding: 13px 10px;
+    }
+    .larger-input {
+      padding: 10px 10px 160px 10px;
+    }
+    label {
+      margin-top: 10px;
+    }
+
+    .lightbox__container img, .lightbox__container video {
+      height: 250px;
+      width: 250px;
+    }
+    .lightbox__next > i,
+    .lightbox__prev > i,
+    .lightbox__close > i {
+      font-size: 15px;
+    }
+    .lightbox__close > i {
+      top: 220px;
+      right: 30px;
+    }
+    .lightbox__next > i {
+      right: 30px;
+    }
+    .lightbox__prev > i {
+      left: 30px;
+    }
+    .lightbox__title {
+      bottom: 155px;
+      left: 64px;
     }
   }

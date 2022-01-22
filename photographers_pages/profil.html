@@ -1,118 +1,167 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="profil.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="profil.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet"> -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-        <!-- <script src="some-path-where-you-dump-the-javascript-libraries/lib/bodyScrollLock.js"></script> -->
-        
-        <title>Photographer</title>
-    </head>
-    <body>
-        <header>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"
+    />
+    <!-- <script src="some-path-where-you-dump-the-javascript-libraries/lib/bodyScrollLock.js"></script> -->
 
-            <div><a href="../index.html"><img src="../photos/logo_fisheye.png" alt="Fisheye Home page" id="logo"></a></div>
-            
-        </header>
-        
-        <main>
-            <section class="top"></section>
+    <title>Photographer</title>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a href="../index.html"
+          ><img
+            src="../photos/logo_fisheye.png"
+            alt="Fisheye Home page"
+            id="logo"
+        /></a>
+      </div>
+    </header>
 
-            <section class="main">
-                <div class="filter">
-                    <p>Trier par&emsp;</p>
-                    <div class="dropdown">
-                        <button class="dropbtn">Popularité&emsp;<i class="fas fa-chevron-down"></i><i class="fas fa-chevron-up"></i></button>
-                        <div class="dropdown-content">
-                            <button class="dropdown-content__popularite">Popularité</button>
-                            <button class="dropdown-content__date">Date</button>
-                            <button class="dropdown-content__titre">Titre</button>
-                        </div>
-                    </div>
+    <main>
+      <section class="top"></section>
+
+      <section class="main">
+        <div class="filter">
+          <p>Trier par&emsp;</p>
+          <div
+            class="dropdown"
+            role="button"
+            aria-haspopup="listbox"
+            aria-expanded=""
+          >
+            <button class="dropbtn" role="label">
+              Popularité&emsp;<i class="fas fa-chevron-down"></i
+              ><i class="fas fa-chevron-up"></i>
+            </button>
+            <div class="dropdown-content">
+              <button
+                class="dropdown-content__popularite"
+                role="listbox"
+                aria-selected="true"
+                aria-activedescendant
+                aria-labelledby=""
+              >
+                Popularité
+              </button>
+              <button
+                class="dropdown-content__date"
+                role="listbox"
+                aria-selected="false"
+                aria-activedescendant
+                aria-labelledby=""
+              >
+                Date
+              </button>
+              <button
+                class="dropdown-content__titre"
+                role="listbox"
+                aria-selected="false"
+                aria-activedescendant
+                aria-labelledby=""
+              >
+                Titre
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="photos"></div>
+
+        <div class="fixed-box">
+          <span
+            ><p class="likes"></p>
+            <i class="fas fa-heart"></i
+          ></span>
+          <p class="price"></p>
+        </div>
+
+        <div class="bground">
+          <div class="content">
+            <p class="modal-title">Contactez-moi</p>
+            <p class="modal-title__name"></p>
+            <span class="close" aria-label="Close contact form"></span>
+            <div class="modal-body">
+              <form name="reserve" action="profil.html" method="get">
+                <div
+                  class="formData"
+                  data-error="Veuillez entrer un prénom comportant 2 caractères ou plus."
+                  data-error-visible="false"
+                >
+                  <label for="first">Prénom</label><br />
+                  <input
+                    class="text-control"
+                    type="text"
+                    id="first"
+                    name="first"
+                    minlength="2"
+                    required
+                  /><br />
                 </div>
-                <div class="photos"></div>
-
-                <div class="fixed-box">
-                    <span><p class="likes"></p> <i class="fas fa-heart"></i></span>
-                    <p class="price"></p>
+                <div
+                  class="formData"
+                  data-error="Veuillez entrer un nom comportant 2 caractères ou plus."
+                  data-error-visible="false"
+                >
+                  <label for="last">Nom</label><br />
+                  <input
+                    class="text-control"
+                    type="text"
+                    id="last"
+                    name="last"
+                    minlength="2"
+                    required
+                  /><br />
                 </div>
-
-                <div class="bground">
-                    <div class="content">
-                      <p class="modal-title">Contactez-moi</p>
-                      <p class="modal-title__name"></p>
-                      <span class="close"></span>
-                      <div class="modal-body">
-                        <form
-                          name="reserve"
-                          action="profil.html"
-                          method="get"
-                        >
-                          <div
-                            class="formData" data-error="Veuillez entrer un prénom comportant 2 caractères ou plus." data-error-visible="false">
-                            <label for="first">Prénom</label><br>
-                            <input
-                              class="text-control"
-                              type="text"
-                              id="first"
-                              name="first"
-                              minlength="2"
-                              required 
-                            /><br> 
-                          </div>
-                          <div
-                            class="formData" data-error="Veuillez entrer un nom comportant 2 caractères ou plus." data-error-visible="false">
-                            <label for="last">Nom</label><br>
-                            <input
-                              class="text-control"
-                              type="text"
-                              id="last"
-                              name="last"
-                              minlength="2"
-                              required 
-                            /><br>
-                          </div>
-                          <div
-                            class="formData" data-error="Veuillez entrer une adresse email valide." data-error-visible="false">
-                            <label for="email">Email</label><br>
-                            <input
-                              class="text-control"
-                              type="email"
-                              id="email"
-                              name="email"
-                              required
-                            /><br>
-                          </div>
-                          <div
-                            class="formData" data-error="Veuillez entrer une adresse email valide." data-error-visible="false">
-                            <label for="email">Votre message</label><br>
-                            <input
-                              class="text-control larger-input"
-                              type="text"
-                              id="text"
-                              name="text"
-                              required
-                            /><br>
-                          </div>
-                          <input
-                            class="btn-submit"
-                            type="submit"
-                            value="Envoyer"
-                        />
-                        </form>
-                      </div>
-                    </div>
+                <div
+                  class="formData"
+                  data-error="Veuillez entrer une adresse email valide."
+                  data-error-visible="false"
+                >
+                  <label for="email">Email</label><br />
+                  <input
+                    class="text-control"
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                  /><br />
                 </div>
+                <div
+                  class="formData"
+                  data-error="Veuillez entrer une adresse email valide."
+                  data-error-visible="false"
+                >
+                  <label for="email">Votre message</label><br />
+                  <input
+                    class="text-control larger-input"
+                    type="text"
+                    id="text"
+                    name="text"
+                    required
+                  /><br />
+                </div>
+                <input
+                  class="btn-submit"
+                  type="submit"
+                  value="Envoyer"
+                  aria-label="Send"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
-            </section>
-        </main>
-
-        <script src="profil.js"></script>
-        
-        
-
-    </body>
+    <script src="profil.js"></script>
+  </body>
+</html>

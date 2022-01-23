@@ -50,7 +50,7 @@ class MediaBase {
                                         <p>${this.title}</p>
                                         <div>
                                             <p>${this.#likesCounter}</p>
-                                            <i class="fas fa-heart" aria-label="likes" data-media-id="${
+                                            <i class="fas fa-heart" aria-label="likes" tabindex="0" data-media-id="${
                                               this.id
                                             }"></i>
                                         </div>
@@ -64,6 +64,11 @@ class MediaBase {
 
     // heart icon on click event responsible for increase likes counter
     heartIconElem.addEventListener("click", this.updateLikesCounter.bind(this));
+    heartIconElem.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        this.updateLikesCounter(e);
+      }
+    });
 
     // image on click event invoking Lightbox
     this.#mediaElem
@@ -71,6 +76,14 @@ class MediaBase {
       .addEventListener("click", (e) => {
         e.preventDefault();
         new Lightbox(parseInt(e.target.dataset.mediaId), page);
+      });
+    this.#mediaElem
+      .querySelector("img, video")
+      .addEventListener("keyup", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          new Lightbox(parseInt(e.target.dataset.mediaId), page);
+        }
       });
   }
 
@@ -112,7 +125,7 @@ class MediaImg extends MediaBase {
   }
 
   _buildMediaLinkElem() {
-    return `<img src="${this.mediaSrc}" alt="${this.title}, closeup view" data-media-id="${this.id}">`;
+    return `<img src="${this.mediaSrc}" alt="${this.title}, closeup view" tabindex="0" data-media-id="${this.id}">`;
   }
 
   mediaType() {
@@ -128,7 +141,7 @@ class MediaVideo extends MediaBase {
   }
 
   _buildMediaLinkElem() {
-    return `<video src="${this.mediaSrc}" alt="${this.title}" data-media-id="${this.id}"></video>`;
+    return `<video src="${this.mediaSrc}" alt="${this.title}" tabindex="0" data-media-id="${this.id}"></video>`;
   }
 
   mediaType() {
@@ -425,9 +438,19 @@ class ModalContactMe {
 
     // close modal event
     closeIcon.addEventListener("click", this.close.bind(this));
+    window.addEventListener("keyup", (e) => {
+      if (e.key === "Escape") {
+        this.close(e);
+      }
+    });
 
     // submit modal event
     submitBtn.addEventListener("click", this.submit.bind(this));
+    submitBtn.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        this.submit.bind(this);
+      }
+    });
   }
 
   // launch modal form

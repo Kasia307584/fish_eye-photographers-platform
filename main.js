@@ -69,9 +69,17 @@ class AllPhotographersPage {
     ); // creates objects in the array #photographers
 
     // register nav bar click events
-    navliElems.forEach((li) =>
-      li.addEventListener("click", this.onApplyFilterToPhotographers.bind(this))
-    ); // we need bind because of this. inside the callback
+    navliElems.forEach((li) => {
+      li.addEventListener(
+        "click",
+        this.onApplyFilterToPhotographers.bind(this)
+      ); // we need bind because of this. inside the callback
+      li.addEventListener("keyup", (e) => {
+        if (e.key === "Enter") {
+          this.onApplyFilterToPhotographers(e);
+        }
+      });
+    });
 
     // register logo click event
     buttonLogoElem.addEventListener(

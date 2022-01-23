@@ -174,7 +174,7 @@ class PhotographerDetailedPage {
     let liTags = "\n";
     for (let tag of photographer.tags) {
       // cette méthode de for peut être utilisée pour les objets de type array
-      liTags += `<li class="tag">#${tag}</li>`;
+      liTags += `<li class="tag" aria-label="tag">#${tag}</li>`;
       liTags += "\n";
     }
 
@@ -418,7 +418,7 @@ class ModalContactMe {
   constructor(photographerName) {
     this.bground = document.querySelector(".bground");
 
-    document.querySelector(".modal-title__name").textContent = photographerName;
+    document.querySelector("#modal-title__name").textContent = photographerName;
 
     const closeIcon = document.querySelector(".close");
     const submitBtn = document.querySelector("input.btn-submit");

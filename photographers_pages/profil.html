@@ -32,13 +32,15 @@
 
       <section class="main">
         <div class="filter">
-          <p>Trier par&emsp;</p>
+          <p id="order_by">Trier par&emsp;</p>
           <div
             class="dropdown"
+            aria-labelledby="order_by"
             role="button"
             aria-haspopup="listbox"
             aria-expanded=""
           >
+            <!-- aria-expanded true/false?-->
             <button class="dropbtn" role="label">
               Popularité&emsp;<i class="fas fa-chevron-down"></i
               ><i class="fas fa-chevron-up"></i>
@@ -46,28 +48,29 @@
             <div class="dropdown-content">
               <button
                 class="dropdown-content__popularite"
+                aria-labelledby="order_by"
                 role="listbox"
                 aria-selected="true"
-                aria-activedescendant
-                aria-labelledby=""
+                aria-activedescendant=""
               >
+                <!-- aria-activedescendant takes as it's value the currently focused element ; can be used on container elements to refer to the currently active element, informing assistive technology users of the currently active element when focused. -->
                 Popularité
               </button>
               <button
                 class="dropdown-content__date"
+                aria-labelledby="order_by"
                 role="listbox"
                 aria-selected="false"
                 aria-activedescendant
-                aria-labelledby=""
               >
                 Date
               </button>
               <button
                 class="dropdown-content__titre"
+                aria-labelledby="order_by"
                 role="listbox"
                 aria-selected="false"
                 aria-activedescendant
-                aria-labelledby=""
               >
                 Titre
               </button>
@@ -84,10 +87,10 @@
           <p class="price"></p>
         </div>
 
-        <div class="bground">
+        <div class="bground" aria-labelledby="modal-title modal-title__name">
           <div class="content">
-            <p class="modal-title">Contactez-moi</p>
-            <p class="modal-title__name"></p>
+            <p id="modal-title">Contactez-moi</p>
+            <p id="modal-title__name"></p>
             <span class="close" aria-label="Close contact form"></span>
             <div class="modal-body">
               <form name="reserve" action="profil.html" method="get">
@@ -96,11 +99,11 @@
                   data-error="Veuillez entrer un prénom comportant 2 caractères ou plus."
                   data-error-visible="false"
                 >
-                  <label for="first">Prénom</label><br />
+                  <label for="first_name">Prénom</label><br />
                   <input
                     class="text-control"
                     type="text"
-                    id="first"
+                    id="first_name"
                     name="first"
                     minlength="2"
                     required
@@ -111,11 +114,11 @@
                   data-error="Veuillez entrer un nom comportant 2 caractères ou plus."
                   data-error-visible="false"
                 >
-                  <label for="last">Nom</label><br />
+                  <label for="last_name">Nom</label><br />
                   <input
                     class="text-control"
                     type="text"
-                    id="last"
+                    id="last_name"
                     name="last"
                     minlength="2"
                     required
@@ -140,11 +143,11 @@
                   data-error="Veuillez entrer une adresse email valide."
                   data-error-visible="false"
                 >
-                  <label for="email">Votre message</label><br />
+                  <label for="your_message">Votre message</label><br />
                   <input
                     class="text-control larger-input"
                     type="text"
-                    id="text"
+                    id="your_message"
                     name="text"
                     required
                   /><br />

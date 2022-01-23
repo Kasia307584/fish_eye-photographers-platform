@@ -1,151 +1,150 @@
-body, html {
-    font-family: 'Raleway', sans-serif;
-    font-size: .9em;
-    max-width: 1366px;
-	margin: auto;
+body,
+html {
+  font-family: "Raleway", sans-serif;
+  font-size: 0.9em;
+  max-width: 1366px;
+  margin: auto;
 }
 header {
-    display: flex;
-    align-items: center;
-    margin: 1.5em 3em;
+  display: flex;
+  align-items: center;
+  margin: 1.5em 3em;
 }
 header img {
-    height: 4em;
-    margin-left: 2em;
+  height: 4em;
+  margin-left: 2em;
 }
 button {
-    background-color: white;
-    border: none;
+  background-color: white;
+  border: none;
 }
 nav {
-    padding-left: 3em;
+  padding-left: 3em;
 }
 nav ul {
-    display: flex;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 ul li {
-    color: #901C1C;
-    border: 1px solid #a7a6a6;
-    border-radius: 50px;
-    text-align: center;
-    padding: .1em .5em;
-    margin: .2em;
+  color: #901c1c;
+  border: 1px solid #a7a6a6;
+  border-radius: 50px;
+  text-align: center;
+  padding: 0.1em 0.5em;
+  margin: 0.2em;
 }
 nav ul li:hover {
-    cursor: pointer;
-    background-color:#901C1C;
-    color: white;
+  cursor: pointer;
+  background-color: #901c1c;
+  color: white;
 }
 .tag--active {
-    background-color:#901C1C;
-    color: white;
+  background-color: #901c1c;
+  color: white;
 }
 #sticky {
-    /* display: none; */
-    display: flex;
-    position: fixed;
-    left: 50%; 
-    top: 5px;
-    width: 130px; 
-    height: 20px;
-    background-color: #D3573C;
-    border-radius: 5px;
-    z-index: 1;
-    text-align: center;
-    font-weight: bold;
-    color: black;
-  }
-  #sticky p {
-      margin: auto;
-  }
+  /* display: none; */
+  display: flex;
+  position: fixed;
+  left: 35%;
+  top: 5px;
+  width: 130px;
+  height: 20px;
+  background-color: #d3573c;
+  border-radius: 5px;
+  z-index: 1;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
+#sticky p {
+  margin: auto;
+}
 
 main > div {
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
 }
 h1 {
-    color: #901C1C;
-    font-size: 1.7em;
-    font-weight: lighter;
-    position: absolute;
-    right: 120px;
-    top: -75px;
+  color: #901c1c;
+  font-size: 1.7em;
+  font-weight: lighter;
+  position: absolute;
+  right: 120px;
+  top: -75px;
 }
 section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 3em;
-
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 3em;
 }
 .card {
-    width: 370px;
-    text-align: center;
-    margin-bottom: 2em;
+  width: 370px;
+  text-align: center;
+  margin-bottom: 2em;
 }
 .card img {
-    height: 170px;
-    width: 170px;
-    object-fit: cover;
-    border-radius: 100px;
+  height: 170px;
+  width: 170px;
+  object-fit: cover;
+  border-radius: 100px;
 }
 h2 {
-    color: #D3573C;
-    font-weight: lighter;
-    font-size: 2.1em;
-    margin-bottom: .2em;
+  color: #d3573c;
+  font-weight: lighter;
+  font-size: 2.1em;
+  margin-bottom: 0.2em;
 }
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 .location {
-    color:#901C1C;
-    font-size: 1.1em;
-    margin-top: 0;
-    margin-bottom: .2em;
+  color: #901c1c;
+  font-size: 1.1em;
+  margin-top: 0;
+  margin-bottom: 0.2em;
 }
 .motto {
-    font-size: .9em;
-    margin: 0;
+  font-size: 0.9em;
+  margin: 0;
 }
 .price {
-    color:#a7a6a6;
-    font-size: .9em;
-    margin: 0;
+  color: #a7a6a6;
+  font-size: 0.9em;
+  margin: 0;
 }
 .card ul {
-    display: flex;
-    list-style-type: none;
-    justify-content: center;
-    margin-top: .3em;
-    padding: 0;
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  margin-top: 0.3em;
+  padding: 0;
 }
 
 @media screen and (max-width: 414px) {
-    
-    header {
-        display: block;
-    }
-    header img {
-        height: 3em;
-        margin-left: -4em;
-        margin-bottom: 1.5em;
-    }
-    nav {
-        padding-left: unset;
-    }
-    nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-        padding-left: 0;
-    }
-    .title {
-        font-size: 1.1em;
-        right: 20px;
-        top: -125px;
-    }
+  header {
+    display: block;
+  }
+  header img {
+    height: 3em;
+    margin-left: -4em;
+    margin-bottom: 1.5em;
+  }
+  nav {
+    padding-left: unset;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 0;
+  }
+  .title {
+    font-size: 1.1em;
+    right: 20px;
+    top: -125px;
+  }
 }

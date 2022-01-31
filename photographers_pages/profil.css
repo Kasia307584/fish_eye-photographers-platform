@@ -149,17 +149,6 @@ i.fa-chevron-up {
   background-color: #d3573c;
   color: black;
 }
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.dropdown:hover .fa-chevron-down {
-  display: none;
-}
-.dropdown:hover .fa-chevron-up {
-  display: inline-block;
-}
 button {
   border: none;
   background: none;

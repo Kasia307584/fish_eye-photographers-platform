@@ -82,6 +82,11 @@ section {
   justify-content: space-between;
   margin-top: 3em;
 }
+section::after {
+  content: "";
+  flex: 0 0 32%;
+  max-width: 390px;
+}
 .card {
   width: 370px;
   text-align: center;

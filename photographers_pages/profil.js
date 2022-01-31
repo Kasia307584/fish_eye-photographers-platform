@@ -176,8 +176,9 @@ class PhotographerDetailedPage {
     ); // all media
     const sectionTop = document.querySelector("section.top");
     const sectionMain = document.querySelector("section.main");
-    const priceElem = sectionMain.querySelector("p.price"); // price per h
+    const priceElem = sectionMain.querySelector("p.price");
     const divPhotosElem = sectionMain.querySelector("div.photos");
+    const dropdownList = sectionMain.querySelector("div.dropdown-content");
 
     this.#sortTypeElem = sectionMain.querySelector("button.dropbtn");
 
@@ -219,24 +220,33 @@ class PhotographerDetailedPage {
         this.#contactMeModalWin.show.bind(this.#contactMeModalWin)
       );
 
+    // register click event for dropdown menu
+    this.#sortTypeElem.addEventListener("click", (e) => {
+      dropdownList.style.display = "block";
+      document.querySelector(".fa-chevron-down").style.display = "none";
+      document.querySelector(".fa-chevron-up").style.display = "inline-block";
+    });
     // register click events for sorting type (Trier par)
     document
       .querySelector(".dropdown-content__popularite")
       .addEventListener("click", (e) => {
         let show = this.show.bind(this);
         show("popularite");
+        dropdownList.style.display = "none";
       });
     document
       .querySelector(".dropdown-content__date")
       .addEventListener("click", (e) => {
         let show = this.show.bind(this);
         show("date");
+        dropdownList.style.display = "none";
       });
     document
       .querySelector(".dropdown-content__titre")
       .addEventListener("click", (e) => {
         let show = this.show.bind(this);
         show("titre");
+        dropdownList.style.display = "none";
       });
 
     mediaJson.forEach((m) =>

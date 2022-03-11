@@ -1,0 +1,25 @@
+{
+  "name": "katarzynazurek_6_20092021",
+  "version": "1.0.0",
+  "description": "**Créez un site accessible pour une plateforme de photographes**",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kasia307584/KatarzynaZurek_6_20092021.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kasia307584/KatarzynaZurek_6_20092021/issues"
+  },
+  "homepage": "https://github.com/Kasia307584/KatarzynaZurek_6_20092021#readme",
+  "devDependencies": {
+    "eslint": "^8.10.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4"
+  }
+}

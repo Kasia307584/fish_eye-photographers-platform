@@ -17,10 +17,10 @@ class Photographer {
 
     let liTags = "\n";
 
-    for (let tag of this.#tags) {
+    this.#tags.forEach((tag) => {
       liTags += `<li class="tag">#${tag}</li>`;
       liTags += "\n";
-    }
+    });
 
     this.#elem.innerHTML = `<div>
                                     <a href="photographers_pages/profil.html?id=${jsonPhotographerObj.id}">
@@ -53,7 +53,7 @@ class Photographer {
   }
 }
 
-// represents the whole page (navigation, all photographer's cards); allows to filter by tag, display element on scrolling
+// represents the whole page (navigation, all photographer's cards); allows to filter by tag
 class AllPhotographersPage {
   #photographers = []; // Array of Photographer objects
   #aStickyElem = null; // <a href="#header" id="sticky"><p>Passer au contenu</p></a>
@@ -117,7 +117,7 @@ class AllPhotographersPage {
       this.#showAllPhotographers(); // show all
       this.#selectedNavLiTagElem = null;
     } else {
-      let tag = e.target.textContent.substring(1).toLowerCase();
+      const tag = e.target.textContent.substring(1).toLowerCase();
 
       this.#photographers.forEach(
         (ph) => ph.checkTag(tag) && ph.showInGallery()
@@ -129,7 +129,7 @@ class AllPhotographersPage {
   }
 
   // undo any filtering and show all photoghraphera (logo click event)
-  onUndoAnyFiltering(e) {
+  onUndoAnyFiltering() {
     if (this.#selectedNavLiTagElem !== null) {
       this.#selectedNavLiTagElem?.classList.remove("tag--active");
       this.#hideAllPhotographers();
@@ -137,7 +137,7 @@ class AllPhotographersPage {
     }
   }
 
-  onDocScroll(e) {
+  onDocScroll() {
     this.#aStickyElem.style.display =
       window.scrollY > STICKY_VISIBLE_SCROLL ? "block" : "none";
   }

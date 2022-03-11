@@ -38,7 +38,7 @@ class MediaBase {
 
   // method needs to be updated in a subclass
   _buildMediaLinkElem() {
-    return `<p> ERROR: Media::_buildMediaLinkElem is not defined by subclass</p>`;
+    return "<p> ERROR: Media::_buildMediaLinkElem is not defined by subclass</p>";
   }
 
   _buildMediaElem() {
@@ -60,7 +60,7 @@ class MediaBase {
       this.#mediaElem.querySelector("div.info > div > p");
 
     // heart icon under the photo
-    let heartIconElem = this.#mediaElem.querySelector("div.info > div > i");
+    const heartIconElem = this.#mediaElem.querySelector("div.info > div > i");
 
     // heart icon on click event responsible for increase likes counter
     heartIconElem.addEventListener("click", this.updateLikesCounter.bind(this));
@@ -101,7 +101,7 @@ class MediaBase {
     }
   }
 
-  updateLikesCounter(e) {
+  updateLikesCounter() {
     this.#likesCounter++;
     this.#likesCounterElem.textContent = this.#likesCounter;
     this.#page.updateLikesCounter();
@@ -153,9 +153,8 @@ class MediaFactory {
   static create(mediaJson, parentElem, page) {
     if ("image" in mediaJson) {
       return new MediaImg(mediaJson, parentElem, page);
-    } else {
-      return new MediaVideo(mediaJson, parentElem, page);
     }
+    return new MediaVideo(mediaJson, parentElem, page);
   }
 }
 
@@ -168,7 +167,7 @@ class PhotographerDetailedPage {
   #currMediaPos = 0; //
 
   constructor(json, photographerId) {
-    const photographer = json["photographers"].find(
+    const photographer = json.photographers.find(
       (ph) => ph.id === photographerId
     ); // single photographer's json
     const mediaJson = json.media.filter(
@@ -186,11 +185,11 @@ class PhotographerDetailedPage {
     let htmlElem = document.createElement("div");
 
     let liTags = "\n";
-    for (let tag of photographer.tags) {
-      // cette méthode de for peut être utilisée pour les objets de type array
+
+    photographer.tags.forEach((tag) => {
       liTags += `<li class="tag" aria-label="tag">#${tag}</li>`;
       liTags += "\n";
-    }
+    });
 
     htmlElem.innerHTML = `<div class="first_line">
                                 <div class="name"><h1>${photographer.name}</h1></div>
@@ -221,7 +220,7 @@ class PhotographerDetailedPage {
       );
 
     // register click event for dropdown menu
-    this.#sortTypeElem.addEventListener("click", (e) => {
+    this.#sortTypeElem.addEventListener("click", () => {
       dropdownList.style.display = "block";
       document.querySelector(".fa-chevron-down").style.display = "none";
       document.querySelector(".fa-chevron-up").style.display = "inline-block";
@@ -229,22 +228,22 @@ class PhotographerDetailedPage {
     // register click events for sorting type (Trier par)
     document
       .querySelector(".dropdown-content__popularite")
-      .addEventListener("click", (e) => {
-        let show = this.show.bind(this);
+      .addEventListener("click", () => {
+        const show = this.show.bind(this);
         show("popularite");
         dropdownList.style.display = "none";
       });
     document
       .querySelector(".dropdown-content__date")
-      .addEventListener("click", (e) => {
-        let show = this.show.bind(this);
+      .addEventListener("click", () => {
+        const show = this.show.bind(this);
         show("date");
         dropdownList.style.display = "none";
       });
     document
       .querySelector(".dropdown-content__titre")
-      .addEventListener("click", (e) => {
-        let show = this.show.bind(this);
+      .addEventListener("click", () => {
+        const show = this.show.bind(this);
         show("titre");
         dropdownList.style.display = "none";
       });
@@ -464,7 +463,7 @@ class ModalContactMe {
   }
 
   // launch modal form
-  show(e) {
+  show() {
     this.bground.style.display = "block";
   }
 
@@ -476,13 +475,13 @@ class ModalContactMe {
   }
 
   // close modal form
-  close(e) {
+  close() {
     this.bground.style.display = "none";
   }
 }
 
 fetch("../FishEyeData.json")
-  .then((response) => response.json()) // fonction fléchée; fonction standard aurait été écrit comme suit: .then(function(response){return response.json()})
+  .then((response) => response.json())
   .then((jsonObj) => {
     // jsonObj est l'objet retourné par le .then précedent
 

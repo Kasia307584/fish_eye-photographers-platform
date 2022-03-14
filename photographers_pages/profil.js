@@ -470,13 +470,63 @@ class ModalContactMe {
   // submit the form, for a moment does nothing
   submit(e) {
     e.preventDefault();
-    this.close();
+    this.checkValidity();
     //document.querySelector("form").submit();
   }
 
   // close modal form
   close() {
     this.bground.style.display = "none";
+  }
+
+  // check validity of modal inputs
+  checkValidity() {
+    const firstNameInput = document.querySelector("#first_name");
+    const lastNameInput = document.querySelector("#last_name");
+    const emailInput = document.querySelector("#email");
+    const yourMessageInput = document.querySelector("#your_message");
+
+    const firstNameDiv = firstNameInput.parentElement;
+    const lastNameDiv = lastNameInput.parentElement;
+    const emailDiv = emailInput.parentElement;
+    const yourMessageDiv = yourMessageInput.parentElement;
+
+    // email regex
+    let regex = /^([a-z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/;
+
+    let isValid = true;
+
+    if (!firstNameInput.validity.valid) {
+      isValid = false;
+      firstNameDiv.setAttribute("data-error-visible", "true");
+    } else {
+      firstNameDiv.setAttribute("data-error-visible", "false");
+    }
+
+    if (!lastNameInput.validity.valid) {
+      isValid = false;
+      lastNameDiv.setAttribute("data-error-visible", "true");
+    } else {
+      lastNameDiv.setAttribute("data-error-visible", "false");
+    }
+
+    if (!regex.test(emailInput.value)) {
+      isValid = false;
+      emailDiv.setAttribute("data-error-visible", "true");
+    } else {
+      emailDiv.setAttribute("data-error-visible", "false");
+    }
+
+    if (!yourMessageInput.validity.valid) {
+      isValid = false;
+      yourMessageDiv.setAttribute("data-error-visible", "true");
+    } else {
+      yourMessageDiv.setAttribute("data-error-visible", "false");
+    }
+
+    if (isValid) {
+      this.close();
+    }
   }
 }
 

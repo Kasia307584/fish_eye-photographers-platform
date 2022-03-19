@@ -492,7 +492,7 @@ class ModalContactMe {
     const yourMessageDiv = yourMessageInput.parentElement;
 
     // email regex
-    let regex = /^([a-z0-9_\.-]+\@[\da-z\.-]+\.[a-z\.]{2,6})$/;
+    let regex = /^([a-z0-9_.-]+@[\da-z.-]+\.[a-z.]{2,6})$/;
 
     let isValid = true;
 

@@ -16,24 +16,24 @@ function compareTitle(firstEl, secondEl) {
 }
 
 class MediaBase {
-  #mediaElem = null; // media dom elem represeting particular image or video
-  #parentElem = null; // dom elem containing all img/video
-  #likesCounterElem = null; // dom elem with number of likes - likes counter under the photo/video
-  #likesCounter = -1; // number of likes
+  mediaElem = null; // media dom elem represeting particular image or video
+  parentElem = null; // dom elem containing all img/video
+  likesCounterElem = null; // dom elem with number of likes - likes counter under the photo/video
+  likesCounter = -1; // number of likes
   id = -1;
   title = "TBD";
   date = "1984-10-19"; // data of image
   mediaSrc = "TBD";
-  #isOnScreen = false;
-  #page = null; // point to PhotographerDetailedPage obj
+  isOnScreen = false;
+  page = null; // point to PhotographerDetailedPage obj
 
   constructor(mediaJson, parentElem, page) {
-    this.#parentElem = parentElem;
+    this.parentElem = parentElem;
     this.id = mediaJson.id;
     this.title = mediaJson.title;
-    this.#likesCounter = mediaJson.likes;
+    this.likesCounter = mediaJson.likes;
     this.date = mediaJson.date;
-    this.#page = page;
+    this.page = page;
   }
 
   // method needs to be updated in a subclass
@@ -42,25 +42,24 @@ class MediaBase {
   }
 
   _buildMediaElem() {
-    this.#mediaElem = document.createElement("div");
-    this.#mediaElem.className = "photo";
+    this.mediaElem = document.createElement("div");
+    this.mediaElem.className = "photo";
 
-    this.#mediaElem.innerHTML = `${this._buildMediaLinkElem()}
+    this.mediaElem.innerHTML = `${this._buildMediaLinkElem()}
                                     <div class="info">
                                         <p>${this.title}</p>
                                         <div>
-                                            <p>${this.#likesCounter}</p>
+                                            <p>${this.likesCounter}</p>
                                             <i class="fas fa-heart" aria-label="likes" tabindex="0" data-media-id="${
                                               this.id
                                             }"></i>
                                         </div>
                                     </div>`;
 
-    this.#likesCounterElem =
-      this.#mediaElem.querySelector("div.info > div > p");
+    this.likesCounterElem = this.mediaElem.querySelector("div.info > div > p");
 
     // heart icon under the photo
-    const heartIconElem = this.#mediaElem.querySelector("div.info > div > i");
+    const heartIconElem = this.mediaElem.querySelector("div.info > div > i");
 
     // heart icon on click event responsible for increase likes counter
     heartIconElem.addEventListener("click", this.updateLikesCounter.bind(this));
@@ -71,13 +70,13 @@ class MediaBase {
     });
 
     // image on click event invoking Lightbox
-    this.#mediaElem
+    this.mediaElem
       .querySelector("img, video")
       .addEventListener("click", (e) => {
         e.preventDefault();
         new Lightbox(parseInt(e.target.dataset.mediaId), page);
       });
-    this.#mediaElem
+    this.mediaElem
       .querySelector("img, video")
       .addEventListener("keyup", (e) => {
         if (e.key === "Enter") {
@@ -88,27 +87,27 @@ class MediaBase {
   }
 
   showInGallery() {
-    if (!this.#isOnScreen) {
-      this.#parentElem.appendChild(this.#mediaElem);
-      this.#isOnScreen = true;
+    if (!this.isOnScreen) {
+      this.parentElem.appendChild(this.mediaElem);
+      this.isOnScreen = true;
     }
   }
 
   hideInGallery() {
-    if (this.#isOnScreen) {
-      this.#parentElem.removeChild(this.#mediaElem);
-      this.#isOnScreen = false;
+    if (this.isOnScreen) {
+      this.parentElem.removeChild(this.mediaElem);
+      this.isOnScreen = false;
     }
   }
 
   updateLikesCounter() {
-    this.#likesCounter++;
-    this.#likesCounterElem.textContent = this.#likesCounter;
-    this.#page.updateLikesCounter();
+    this.likesCounter++;
+    this.likesCounterElem.textContent = this.likesCounter;
+    this.page.updateLikesCounter();
   }
 
   getLikesCounter() {
-    return this.#likesCounter;
+    return this.likesCounter;
   }
 
   // method needs to be updated in a subclass
@@ -159,12 +158,12 @@ class MediaFactory {
 }
 
 class PhotographerDetailedPage {
-  #sortTypeElem = null;
-  #likesCounter = -1;
-  #likesCounterElem = null; // elem dispalying likes counter - cumulative number of all likes
-  #contactMeModalWin = null;
-  #media = []; // array of Media obj (dom elems with images/videos)
-  #currMediaPos = 0; //
+  sortTypeElem = null;
+  likesCounter = -1;
+  likesCounterElem = null; // elem dispalying likes counter - cumulative number of all likes
+  contactMeModalWin = null;
+  media = []; // array of Media obj (dom elems with images/videos)
+  currMediaPos = 0; //
 
   constructor(json, photographerId) {
     const photographer = json.photographers.find(
@@ -179,7 +178,7 @@ class PhotographerDetailedPage {
     const divPhotosElem = sectionMain.querySelector("div.photos");
     const dropdownList = sectionMain.querySelector("div.dropdown-content");
 
-    this.#sortTypeElem = sectionMain.querySelector("button.dropbtn");
+    this.sortTypeElem = sectionMain.querySelector("button.dropbtn");
 
     // updating <section class="top">
     let htmlElem = document.createElement("div");
@@ -209,18 +208,18 @@ class PhotographerDetailedPage {
     sectionTop.appendChild(htmlElem);
 
     // 'contact me' modal window
-    this.#contactMeModalWin = new ModalContactMe(photographer.name);
+    this.contactMeModalWin = new ModalContactMe(photographer.name);
 
     // register click event launching 'contact me' modal window
     document
       .querySelector("button.contact_param")
       .addEventListener(
         "click",
-        this.#contactMeModalWin.show.bind(this.#contactMeModalWin)
+        this.contactMeModalWin.show.bind(this.contactMeModalWin)
       );
 
     // register click event for dropdown menu
-    this.#sortTypeElem.addEventListener("click", () => {
+    this.sortTypeElem.addEventListener("click", () => {
       dropdownList.style.display = "block";
       document.querySelector(".fa-chevron-down").style.display = "none";
       document.querySelector(".fa-chevron-up").style.display = "inline-block";
@@ -249,16 +248,16 @@ class PhotographerDetailedPage {
       });
 
     mediaJson.forEach((m) =>
-      this.#media.push(MediaFactory.create(m, divPhotosElem, this))
+      this.media.push(MediaFactory.create(m, divPhotosElem, this))
     );
 
     // update counter stuff
-    this.#likesCounter = mediaJson.reduce(
+    this.likesCounter = mediaJson.reduce(
       (previousValue, currentValue) => previousValue + currentValue.likes,
       0
     ); // cumulative number of all likes and initial value
-    this.#likesCounterElem = sectionMain.querySelector(".likes");
-    this.#likesCounterElem.textContent = this.#likesCounter;
+    this.likesCounterElem = sectionMain.querySelector(".likes");
+    this.likesCounterElem.textContent = this.likesCounter;
 
     // update price
     priceElem.textContent = photographer.price + "€ / jour";
@@ -266,94 +265,94 @@ class PhotographerDetailedPage {
 
   // for current photograpger (photographerId) populate <section class="top"> and <div class="photos">
   show(sortType) {
-    this.#media.forEach((m) => m.hideInGallery());
+    this.media.forEach((m) => m.hideInGallery());
 
     switch (sortType) {
       case "popularite":
-        this.#sortTypeElem.firstChild.nodeValue = "Popularité";
-        this.#media.sort(compareLikes).forEach((m) => m.showInGallery());
+        this.sortTypeElem.firstChild.nodeValue = "Popularité";
+        this.media.sort(compareLikes).forEach((m) => m.showInGallery());
         break;
       case "date":
-        this.#sortTypeElem.firstChild.nodeValue = "Date";
-        this.#media.sort(compareDate).forEach((m) => m.showInGallery());
+        this.sortTypeElem.firstChild.nodeValue = "Date";
+        this.media.sort(compareDate).forEach((m) => m.showInGallery());
         break;
       case "titre":
-        this.#sortTypeElem.firstChild.nodeValue = "Titre";
-        this.#media.sort(compareTitle).forEach((m) => m.showInGallery());
+        this.sortTypeElem.firstChild.nodeValue = "Titre";
+        this.media.sort(compareTitle).forEach((m) => m.showInGallery());
         break;
       default:
         // == 'none'
-        this.#sortTypeElem.firstChild.nodeValue = "Popularité";
-        this.#media.sort(compareLikes).forEach((m) => m.showInGallery());
+        this.sortTypeElem.firstChild.nodeValue = "Popularité";
+        this.media.sort(compareLikes).forEach((m) => m.showInGallery());
     }
   }
 
   hide() {
-    this.#media.forEach((m) => m.hideInGallery());
+    this.media.forEach((m) => m.hideInGallery());
   }
 
   // update <span> elem with current cummulative value of likes
   updateLikesCounter() {
-    this.#likesCounter++;
-    this.#likesCounterElem.textContent = this.#likesCounter;
+    this.likesCounter++;
+    this.likesCounterElem.textContent = this.likesCounter;
   }
 
   // return pair {mediaType, mediaSrc} for current position
-  #getMediaForCurrPos() {
+  getMediaForCurrPos() {
     return {
-      mediaType: this.#media[this.#currMediaPos].mediaType(),
-      mediaSrc: this.#media[this.#currMediaPos].mediaSrc,
-      title: this.#media[this.#currMediaPos].title,
+      mediaType: this.media[this.currMediaPos].mediaType(),
+      mediaSrc: this.media[this.currMediaPos].mediaSrc,
+      title: this.media[this.currMediaPos].title,
     };
   }
 
   // on the base media's ID (mediaId) set current position to iterate media prev/next
   // return pair {mediaType, mediaSrc} of currently set position
   setMediaPos(mediaId) {
-    this.#currMediaPos = this.#media.findIndex((m) => m.id === mediaId);
-    return this.#getMediaForCurrPos();
+    this.currMediaPos = this.media.findIndex((m) => m.id === mediaId);
+    return this.getMediaForCurrPos();
   }
 
   getPrevMedia() {
-    if (this.#currMediaPos === 0) {
-      this.#currMediaPos = this.#media.length;
+    if (this.currMediaPos === 0) {
+      this.currMediaPos = this.media.length;
     }
-    this.#currMediaPos--;
+    this.currMediaPos--;
 
-    return this.#getMediaForCurrPos();
+    return this.getMediaForCurrPos();
   }
 
   getNextMedia() {
-    if (this.#currMediaPos === this.#media.length - 1) {
-      this.#currMediaPos = -1;
+    if (this.currMediaPos === this.media.length - 1) {
+      this.currMediaPos = -1;
     }
-    this.#currMediaPos++;
+    this.currMediaPos++;
 
-    return this.#getMediaForCurrPos();
+    return this.getMediaForCurrPos();
   }
 }
 
 class Lightbox {
-  #page = null; // point to PhotographerDetailedPage obj
-  #element = null; // dom element with lightbox
-  #container = null; // container for media
-  #title = null; // media's title under img/video
+  page = null; // point to PhotographerDetailedPage obj
+  element = null; // dom element with lightbox
+  container = null; // container for media
+  title = null; // media's title under img/video
 
   // mediaId - media id from json
   // page - PhotographerDetailedPage obj
   constructor(mediaId, page) {
     // (url, images)
-    this.#page = page;
-    this.#element = this.#buildDOM();
-    this.#container = this.#element.querySelector(".lightbox__container");
-    this.#title = this.#element.querySelector("p.lightbox__title");
+    this.page = page;
+    this.element = this.buildDOM();
+    this.container = this.element.querySelector(".lightbox__container");
+    this.title = this.element.querySelector("p.lightbox__title");
 
     this.onKeyUp = this.onKeyUp.bind(this);
     document.addEventListener("keyup", this.onKeyUp);
 
-    this.#loadImage(this.#page.setMediaPos(mediaId));
+    this.loadImage(this.page.setMediaPos(mediaId));
 
-    document.body.appendChild(this.#element);
+    document.body.appendChild(this.element);
   }
 
   // keybord navigation events
@@ -370,9 +369,9 @@ class Lightbox {
   // close lightbox on mouse/keyboard event
   close(e) {
     e.preventDefault();
-    this.#element.classList.add("fadeOut");
+    this.element.classList.add("fadeOut");
     window.setTimeout(() => {
-      this.#element.parentElement.removeChild(this.#element);
+      this.element.parentElement.removeChild(this.element);
     }, 500);
     document.removeEventListener("keyup", this.onKeyUp);
   }
@@ -380,16 +379,16 @@ class Lightbox {
   // load next image/video on mouse/keyboard event
   next(e) {
     e.preventDefault();
-    this.#loadImage(this.#page.getNextMedia());
+    this.loadImage(this.page.getNextMedia());
   }
 
   // load previous image/video on mouse/keyboard event
   prev(e) {
     e.preventDefault();
-    this.#loadImage(this.#page.getPrevMedia());
+    this.loadImage(this.page.getPrevMedia());
   }
 
-  #buildDOM() {
+  buildDOM() {
     const htmlElem = document.createElement("div");
     htmlElem.classList.add("lightbox");
 
@@ -415,8 +414,8 @@ class Lightbox {
   }
 
   // loads image/video into lightbox
-  #loadImage(media) {
-    this.#container.innerHTML = "";
+  loadImage(media) {
+    this.container.innerHTML = "";
 
     let htmlElem = "";
     if (media.mediaType === "img") {
@@ -428,8 +427,8 @@ class Lightbox {
                         </video>`;
     }
 
-    this.#container.innerHTML = htmlElem;
-    this.#title.textContent = media.title;
+    this.container.innerHTML = htmlElem;
+    this.title.textContent = media.title;
   }
 }
 

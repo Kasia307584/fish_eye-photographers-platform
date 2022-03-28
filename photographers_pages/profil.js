@@ -257,7 +257,7 @@ class PhotographerDetailedPage {
       (previousValue, currentValue) => previousValue + currentValue.likes,
       0
     ); // cumulative number of all likes and initial value
-    this.#likesCounterElem = sectionMain.querySelector("p.likes");
+    this.#likesCounterElem = sectionMain.querySelector(".likes");
     this.#likesCounterElem.textContent = this.#likesCounter;
 
     // update price

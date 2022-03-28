@@ -141,10 +141,15 @@ class AllPhotographersPage {
     this.#aStickyElem.style.display =
       window.scrollY > STICKY_VISIBLE_SCROLL ? "block" : "none";
   }
+
+  _ESLintFunction() {
+    console.log("ESLint function");
+  }
 }
 
 fetch("./FishEyeData.json")
   .then((response) => response.json())
   .then((jsonObj) => {
     page = new AllPhotographersPage(jsonObj);
+    page._ESLintFunction();
   });

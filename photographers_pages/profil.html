@@ -5,13 +5,10 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="profil.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet"> -->
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"
     />
-    <!-- <script src="some-path-where-you-dump-the-javascript-libraries/lib/bodyScrollLock.js"></script> -->
 
     <title>Photographer</title>
   </head>
@@ -33,22 +30,20 @@
       <section class="main">
         <div class="filter">
           <p id="order_by">Trier par&emsp;</p>
-          <div
-            class="dropdown"
-            aria-labelledby="order_by"
-            role="button"
-            aria-haspopup="listbox"
-          >
-            <!-- aria-expanded true/false?-->
-            <button class="dropbtn" role="label">
+          <div class="dropdown">
+            <button
+              class="dropbtn"
+              aria-labelledby="order_by"
+              aria-haspopup="listbox"
+            >
               Popularité&emsp;<i class="fas fa-chevron-down"></i
               ><i class="fas fa-chevron-up"></i>
             </button>
-            <div class="dropdown-content">
+            <div class="dropdown-content" role="listbox">
               <button
                 class="dropdown-content__popularite"
+                role="option"
                 aria-labelledby="order_by"
-                role="listbox"
                 aria-selected="true"
               >
                 <!-- aria-activedescendant takes as it's value the currently focused element ; can be used on container elements to refer to the currently active element, informing assistive technology users of the currently active element when focused. -->
@@ -56,16 +51,16 @@
               </button>
               <button
                 class="dropdown-content__date"
+                role="option"
                 aria-labelledby="order_by"
-                role="listbox"
                 aria-selected="false"
               >
                 Date
               </button>
               <button
                 class="dropdown-content__titre"
+                role="option"
                 aria-labelledby="order_by"
-                role="listbox"
                 aria-selected="false"
               >
                 Titre
@@ -76,10 +71,7 @@
         <div class="photos"></div>
 
         <div class="fixed-box">
-          <span
-            ><p class="likes"></p>
-            <i class="fas fa-heart"></i
-          ></span>
+          <span><span class="likes"></span> <i class="fas fa-heart"></i></span>
           <p class="price"></p>
         </div>
 

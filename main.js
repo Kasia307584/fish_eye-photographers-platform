@@ -120,7 +120,7 @@ class AllPhotographersPage {
       const tag = e.target.textContent.substring(1).toLowerCase();
 
       this.photographers.forEach(
-        (ph) => ph.checkTag(tag) && ph.showInGallery()
+        (ph) => ph.checkTag(tag) && ph.showInGallery() // si le 1er est vrai appelle le 2eme
       ); // filter
       e.target.classList.add("tag--active");
 

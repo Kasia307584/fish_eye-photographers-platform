@@ -118,7 +118,7 @@ class MediaBase {
 
 class MediaImg extends MediaBase {
   constructor(mediaJson, parentElem, page) {
-    super(mediaJson, parentElem, page);
+    super(mediaJson, parentElem, page); // on appelle le constructor de MediaBase
     this.mediaSrc = `../photos/${mediaJson.photographerId}/${mediaJson.image}`;
     this._buildMediaElem();
   }
@@ -149,7 +149,9 @@ class MediaVideo extends MediaBase {
 }
 
 class MediaFactory {
+  // factory method design pattern -> utilisé pour garder la logique de creation d'un objet separé de la class qui va l'utiliser (PhotographerDetailedPage) et pour que cette derniere utilise uniquement l'interface commune (MediaBase) pour creer des nouveaux objets
   static create(mediaJson, parentElem, page) {
+    // pour cette class on ne cree pas de l'instance de class
     if ("image" in mediaJson) {
       return new MediaImg(mediaJson, parentElem, page);
     }
@@ -270,7 +272,7 @@ class PhotographerDetailedPage {
     switch (sortType) {
       case "popularite":
         this.sortTypeElem.firstChild.nodeValue = "Popularité";
-        this.media.sort(compareLikes).forEach((m) => m.showInGallery());
+        this.media.sort(compareLikes).forEach((m) => m.showInGallery()); // sort est une methode d'array, ca prend ici une fonction (compareLikes) comme parametre et ca tri selon le type de tri choisi (sortType)
         break;
       case "date":
         this.sortTypeElem.firstChild.nodeValue = "Date";
@@ -285,10 +287,6 @@ class PhotographerDetailedPage {
         this.sortTypeElem.firstChild.nodeValue = "Popularité";
         this.media.sort(compareLikes).forEach((m) => m.showInGallery());
     }
-  }
-
-  hide() {
-    this.media.forEach((m) => m.hideInGallery());
   }
 
   // update <span> elem with current cummulative value of likes
@@ -470,7 +468,9 @@ class ModalContactMe {
   submit(e) {
     e.preventDefault();
     this.checkValidity();
-    //document.querySelector("form").submit();
+    console.log(document.querySelector("#first_name").value);
+    console.log(document.querySelector("#last_name").value);
+    console.log(document.querySelector("#email").value);
   }
 
   // close modal form
@@ -532,10 +532,8 @@ class ModalContactMe {
 fetch("../FishEyeData.json")
   .then((response) => response.json())
   .then((jsonObj) => {
-    // jsonObj est l'objet retourné par le .then précedent
-
     const url = new URL(window.location.href);
-    let photographerId = url.searchParams.get("id"); // window.location.href.match(/id=(\d+)$/)[1];
+    let photographerId = url.searchParams.get("id");
     if (photographerId === null) {
       console.log(`Wrong or none id # in: ${window.location.href}`);
     }

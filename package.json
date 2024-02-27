@@ -1,22 +1,22 @@
 {
-  "name": "katarzynazurek_6_20092021",
+  "name": "fish-eye-photographers-platform",
   "version": "1.0.0",
-  "description": "**Créez un site accessible pour une plateforme de photographes**",
+  "description": "**Accessible platform for photographers**",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kasia307584/KatarzynaZurek_6_20092021.git"
+    "url": "git+https://github.com/Kasia307584/fish-eye-photographers-platform.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Kasia307584/KatarzynaZurek_6_20092021/issues"
+    "url": "https://github.com/Kasia307584/fish-eye-photographers-platform/issues"
   },
-  "homepage": "https://github.com/Kasia307584/KatarzynaZurek_6_20092021#readme",
+  "homepage": "https://github.com/Kasia307584/fish-eye-photographers-platform#readme",
   "devDependencies": {
     "eslint": "^8.11.0",
     "prettier": "^2.5.1"

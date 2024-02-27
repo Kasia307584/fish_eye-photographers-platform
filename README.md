@@ -4,7 +4,7 @@ This is a solution to the [OpenClassrooms](https://openclassrooms.com/) project.
 
 ### Screenshot
 
-![](/images/screenshot.png)
+![](/photos/screenshot.png)
 
 ### The challenge
 
